@@ -28,7 +28,6 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    //Mage2\Core\Http\Kernel::class,
     App\Http\Kernel::class
 );
 

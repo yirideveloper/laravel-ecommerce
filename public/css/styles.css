@@ -1,102 +1,58 @@
-.dropdown-menu .sub-menu {
-    left: 100%;
-    position: absolute;
-    top: 0;
-    visibility: hidden;
-    margin-top: -1px;
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+p {
+    line-height: 2rem;
+}
+footer {
+    border: 1px solid #eee;
+}
+.main-content {
+    min-height: 500px;
 }
 
-.dropdown-menu li:hover .sub-menu {
-    visibility: visible;
+#dropzone { margin-bottom: 3rem; }
+.btn-primary , .btn-default{
+    background-color: #ff5722;
+}
+.btn-primary:hover, .btn-default:hover {
+    background-color: #ff5722;
+}
+.dropzone { border: 2px dashed #0087F7; border-radius: 5px; background: white; }
+.dropzone .dz-message { font-weight: 400; }
+.dropzone .dz-message .note { font-size: 0.8em; font-weight: 200; display: block; margin-top: 1.4rem; }
+.dz-image img {
+    max-height: 100px;
+}
+input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #ff5722;
+    box-shadow: 0 1px 0 0 #ff5722;
+}
+input:not([type]):focus:not([readonly]) + label,
+input[type=text]:focus:not([readonly]) + label,
+input[type=password]:focus:not([readonly]) + label,
+input[type=email]:focus:not([readonly]) + label,
+input[type=url]:focus:not([readonly]) + label,
+input[type=time]:focus:not([readonly]) + label,
+input[type=date]:focus:not([readonly]) + label,
+input[type=datetime]:focus:not([readonly]) + label,
+input[type=datetime-local]:focus:not([readonly]) + label,
+input[type=tel]:focus:not([readonly]) + label,
+input[type=number]:focus:not([readonly]) + label,
+input[type=search]:focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+    
+    color : #ff5722;
+}
+.tabs .tab a,.tabs .tab a:hover,.tabs .tab.disabled a {
+    color : #ff5722;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
+.tabs .indicator {
+     background-color: #ff5722;
 }
-
-.nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
-    margin-top: 0;
-}
-
-.navbar .sub-menu:before {
-    border-bottom: 7px solid transparent;
-    border-left: none;
-    border-right: 7px solid rgba(0, 0, 0, 0.2);
-    border-top: 7px solid transparent;
-    left: -7px;
-    top: 10px;
-}
-.navbar .sub-menu:after {
-    border-top: 6px solid transparent;
-    border-left: none;
-    border-right: 6px solid #fff;
-    border-bottom: 6px solid transparent;
-    left: 10px;
-    top: 11px;
-    left: -6px;
-}
-.vbottom {
-    display: inline-block;
-    vertical-align: bottom;
-    float: none;
-}
-.btn-file {
-    position: relative;
-    overflow: hidden;
-    height: 85px;
-    width: 85px;
-    font-size: 50px;
-}
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
-}
-.image_list {
-    width: 100%;
-    float: left;
-}
-.image_list label {
-    width: 100%;
-    float: left;
-}
-
-.product_image_delete:hover {
-    text-decoration: none;
-}
-
-/************START  FRONT END CSS  ********************/
-.carousel-inner .item {
-    min-height: 250px;
-}
-
-.carousel-control.right, .carousel-control.left {
-    background-image: none;
-}
-
-.light-blue-a100 {
-    background-color: #B3E5FC;
-}
-
-.orange-a400 {
-    background-color: #FFA726;
-}
-
-.image-container .image img {
-    width: 100%;
-    max-height: 150px;
-    overflow: hidden;
-}
-
-/************END  FRONT END CSS  ********************/
-
