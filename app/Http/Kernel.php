@@ -44,12 +44,13 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' =>       \App\Http\Middleware\Authenticate::class,
-        'customerauth' =>       \App\Http\Middleware\CustomerAuthenticate::class,
+        'frontauth' => \App\Http\Middleware\FrontAuthenticate::class,
+        'adminauth' => \App\Http\Middleware\AdminAuthenticate::class,
+        'website' => \App\Http\Middleware\Website::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'can' =>        \Illuminate\Foundation\Http\Middleware\Authorize::class,
-        'guest' =>      \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' =>   \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'guestcustomer' =>   \App\Http\Middleware\RedirectIfNotCustomer::class
+        'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
+        'frontguest' => \App\Http\Middleware\RedirectIfFrontAuthenticated::class,
+        'adminguest' => \App\Http\Middleware\RedirectIfAdminAuthenticated::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }
