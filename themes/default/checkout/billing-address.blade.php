@@ -7,11 +7,9 @@
             <h2>Checkout Page</h2>
             <div class="col-md-offset-1 col-md-10">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Shilling Address</div>
+                    <div class="panel-heading">Billing Address</div>
                     <div class="panel-body">
                         {!! Form::open(['route' => 'checkout.billing-address.post']) !!}
-
-
 
                         @include('template.text',['key' => 'first_name','label' => 'First Name'])
                         @include('template.text',['key' => 'last_name','label' => 'Last Name'])
