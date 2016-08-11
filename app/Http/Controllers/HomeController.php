@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use CrazyCommerce\Admin\Models\Product;
 use Illuminate\Http\Request;
+use CrazyCommerce\Admin\Shipping\Facade\Shipping;
 
 class HomeController extends Controller
 {
@@ -16,6 +18,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view($this->theme . '.home');
+        
+        $product = new Product();
+        $featureProducts = $product->getFeaturedProducts();
+        return view($this->theme . '.home')
+                ->with('featuredProducts', $featureProducts);
     }
 }
