@@ -61,7 +61,7 @@ class ProductAttributeSeeder extends Seeder
             [
                 'title' => 'Page Description',
                 'identifier' => 'page_description',
-                'type' => 'TEXT',
+                'type' => 'VARCHAR',
                 'field_type' => 'TEXTAREA',
                 'validation' => 'max:255'
             ],
@@ -78,7 +78,7 @@ class ProductAttributeSeeder extends Seeder
             [
                 'title' => 'Description',
                 'identifier' => 'description',
-                'type' => 'VARCHAR',
+                'type' => 'TEXT',
                 'field_type' => 'TEXTAREA',
                 'validation' => 'required'
             ],
@@ -103,6 +103,25 @@ class ProductAttributeSeeder extends Seeder
             'product_attribute_id' => $statusAttribute->id,
             'value' => '0',
             'label' => 'Disabled'
+        ]);
+        
+        $isTaxableAttribute = ProductAttribute::create([
+            'title' => 'Is Taxable',
+            'identifier' => 'is_taxable',
+            'type' => 'VARCHAR',
+            'field_type' => 'SELECT',
+            'validation' => 'required'
+        ]);
+
+        AttributeDropdownOption::create([
+            'product_attribute_id' => $isTaxableAttribute->id,
+            'value' => '1',
+            'label' => 'Yes'
+        ]);
+        AttributeDropdownOption::create([
+            'product_attribute_id' => $isTaxableAttribute->id,
+            'value' => '0',
+            'label' => 'No'
         ]);
 
 
