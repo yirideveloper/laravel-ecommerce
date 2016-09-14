@@ -11,9 +11,7 @@
 |
 */
 
-
-
-$app = new Mage2\Admin\Foundation\Application(
+$app = new Mage2\Framework\Foundation\Application(
     realpath(__DIR__.'/../')
 );
 
@@ -30,17 +28,17 @@ $app = new Mage2\Admin\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    App\Http\Kernel::class
+    Mage2\Framework\Http\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
+    Mage2\Framework\Console\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
+    Mage2\Framework\Exceptions\Handler::class
 );
 
 /*

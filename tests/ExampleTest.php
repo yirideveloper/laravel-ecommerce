@@ -3,9 +3,14 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\App;
 
 class ExampleTest extends TestCase
 {
+    public function setUp() {
+        parent::setUp();
+    }
+
     /**
      * A basic functional test example.
      *
@@ -13,8 +18,7 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
-
-        //$this->assertTrue(true);
-        $this->visit('/')->see('Mage2 Commerce');
+        $this->assertTrue(true);
+        $this->visit('/admin/login')->see('Mage2 Admin Login');
     }
 }

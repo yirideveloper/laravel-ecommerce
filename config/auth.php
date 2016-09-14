@@ -43,7 +43,7 @@ return [
 
         'admin' => [
             'driver' => 'session',
-            'provider' => 'admin',
+            'provider' => 'adminusers',
         ],
 
         'api' => [
@@ -72,11 +72,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Mage2\Admin\Eloquents\Models\User::class,
+            'model' => Mage2\User\Models\User::class,
         ],
-        'admin' => [
+        'adminusers' => [
             'driver' => 'eloquent',
-            'model' => Mage2\Admin\Eloquents\Models\AdminUser::class,
+            'model' => Mage2\Common\Models\AdminUser::class,
         ],
 
         // 'users' => [
@@ -107,7 +107,6 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'email' => 'auth.emails.password',
             'table' => 'password_resets',
             'expire' => 60,
         ],
