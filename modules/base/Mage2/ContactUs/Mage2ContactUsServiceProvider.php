@@ -1,11 +1,11 @@
 <?php
-namespace Mage2\Review;
+namespace Mage2\ContactUs;
 
 use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
 
-class Mage2ReviewServiceProvider extends ServiceProvider {
+class Mage2ContactUsServiceProvider extends ServiceProvider {
 
     /**
      * Bootstrap any application services.
@@ -24,7 +24,6 @@ class Mage2ReviewServiceProvider extends ServiceProvider {
      */
     public function register() {
         $this->mapWebRoutes();
-        $this->registerAdminMenu();
         $this->registerViewPath();
        
     }
@@ -46,7 +45,8 @@ class Mage2ReviewServiceProvider extends ServiceProvider {
 
         View::addLocation(__DIR__ . "/views");
     }
-    
+
+    /*
     public function registerAdminMenu() {
         $adminMenu = [
             'label' => 'Review',
@@ -54,6 +54,7 @@ class Mage2ReviewServiceProvider extends ServiceProvider {
         ];
         AdminMenu::registerMenu($adminMenu);
     }
+    */
 
    
 }
