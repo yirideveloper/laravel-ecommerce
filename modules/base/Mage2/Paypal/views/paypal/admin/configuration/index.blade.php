@@ -11,8 +11,16 @@
         <div class="clearfix"></div>
 
         <br/>
-        
-        <p>Config Fields</p>
+        <div class="paypal-form-wrapper">
+
+            {!! Form::model($configurations, ['route' => 'admin.configuration.store']) !!}
+            
+            @include('template.text',['key' => 'paypal_client_id','label' => 'Paypal Client Id'])
+            @include('template.text',['key' => 'paypal_client_secret','label' => 'Paypal Client Secret'])
+            @include('template.submit',['label' => 'Save Configuration'])
+
+            {!! Form::close() !!}
+        </div>
     </div>
 </div>
 @endsection
