@@ -1,15 +1,15 @@
 <?php
 
-namespace Mage2\Address;
+namespace Mage2\Auth;
 
 use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
 
-class Mage2AddressServiceProvider extends ServiceProvider {
+class Mage2AuthServiceProvider extends ServiceProvider {
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap mage2 auth module services.
      *
      * @return void
      */
@@ -19,7 +19,7 @@ class Mage2AddressServiceProvider extends ServiceProvider {
     }
 
     /**
-     * Register any application services.
+     * Register mage2 auth module services.
      *
      * @return void
      */
@@ -31,11 +31,10 @@ class Mage2AddressServiceProvider extends ServiceProvider {
     }
 
     /**
-     * Define the "web" routes for the application.
+     * Include the "web" routes files for the mage2 auth module.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
     protected function mapWebRoutes() {
@@ -43,10 +42,22 @@ class Mage2AddressServiceProvider extends ServiceProvider {
     }
 
 
+    /**
+     * Register the view path for the mage2 auth modules.
+     *
+     * @return void
+     */
     protected function registerViewPath() {
         View::addLocation(__DIR__ . "/views");
     }
-    
+
+
+
+    /**
+     * Register admin menu for the mage2 auth modules.
+     *
+     * @return void
+     */
     public function registerAdminMenu() {
         
 
