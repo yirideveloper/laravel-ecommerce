@@ -16,7 +16,9 @@ class AdminLoginTest extends TestCase
     public function testGetLogin()
     {
         $this->assertTrue(true);
-        $this->visit('/admin/login')->see('Mage2 Admin Login');
+        $this->visit($this->baseUrl. '/admin/login')
+                    ->seePageIs($this->baseUrl.'/admin/login')
+                    ->see('Mage2 Admin Login');
     }
 
     /**
@@ -24,7 +26,7 @@ class AdminLoginTest extends TestCase
      *
      * @return void
      */
-    public function testLoginPost()
+    public function testPostLogin()
     {
         $this->assertTrue(true);
         $this->visit('/admin/login')
