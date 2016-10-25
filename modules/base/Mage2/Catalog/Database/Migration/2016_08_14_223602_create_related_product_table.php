@@ -14,9 +14,11 @@ class CreateRelatedProductTable extends Migration
     {
          Schema::create('related_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
-            $table->integer('related_products_id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('related_products_id')->unsigned();
             $table->timestamps();
+            
+          
         });
     }
 
