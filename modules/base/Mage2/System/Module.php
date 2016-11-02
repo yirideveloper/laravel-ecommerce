@@ -35,16 +35,19 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
-        //dd('test');
-        //$this->registerModule();
+
         $this->registerAdminConfigurationManager();
         $this->registerAdminConfigurationFacade();
 
-        $this->registerTheme();
+        //
         $this->registerAdminMenuFacade();
+        $this->_registerShippingFacade();
+        $this->_registerPaymentFacade();
+        $this->_registerThemeFacade();
+
         $this->app['request']->server->set('HTTPS', 'off');
         
-         //parent::boot();
+
         View::composer(['layouts.admin-nav','layouts.admin-bootstrap-nav'], function ($view) {
             $adminMenus = (array) AdminMenuFacade::getMenuItems();
             $view->with('adminMenus', $adminMenus);
@@ -64,11 +67,10 @@ class Module extends BaseModule {
         //$this->registerAdminConfiguration();
         $this->registerViewPath();
         $this->registerViewComposerData();
-        $this->_registerShippingFacade();
+        $this->registerTheme();
+
         //$this->registerUrlGenerator();
 
-        $this->_registerPaymentFacade();
-        $this->_registerThemeFacade();
          $this->app->bind('view.finder', function ($app) {
             $paths = $app['config']['view.paths'];
 
