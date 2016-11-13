@@ -154,9 +154,10 @@ return [
      */
 
         Mage2\Framework\System\Module::class,
-
         Mage2\Framework\Foundation\Providers\ModuleServiceProvider::class,
         Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
+        Mage2\Framework\DataGrid\DataGridServiceProvider::class,
+        //Mage2\Framework\Form\FormServiceProvider::class,
     //
 
     /*
@@ -226,11 +227,14 @@ return [
         'Validator'     => Illuminate\Support\Facades\Validator::class,
         'View'          => Illuminate\Support\Facades\View::class,
         'PDF'           => Barryvdh\DomPDF\Facade::class,
-        'Theme'         => Mage2\Framework\Theme\Facade\Theme::class,
         'Debugbar'      => Barryvdh\Debugbar\Facade::class,
+
+
+        'Theme'         => Mage2\Framework\Theme\Facades\Theme::class,
+        'DataGrid'      => Mage2\Framework\DataGrid\Facades\DataGrid::class,
         'AdminConfiguration'=> Mage2\Framework\Configuration\Facades\AdminConfiguration::class,
         'AdminMenu'     => Mage2\Framework\AdminMenu\Facades\AdminMenu::class,
-        'Form'          => Mage2\Framework\Form\Contracts\FormFacade::class,
+        'Form'          => Mage2\Framework\Form\Facades\FormFacade::class,
         'Payment'       => Mage2\Framework\Payment\Facades\Payment::class,
         'Permission'    => Mage2\Framework\Support\Facades\Permission::class,
     ],
