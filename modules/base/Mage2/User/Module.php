@@ -41,8 +41,44 @@ use Mage2\Framework\Auth\Facades\Permission as PermissionFacade;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Framework\Auth\Access\Permission as PermissionTest;
+use Illuminate\Support\Facades\File;
+use Symfony\Component\Yaml\Yaml;
 
 class Module extends BaseModule {
+
+    /**
+     *
+     * Module Name Variable
+     * @var name
+     *
+     */
+    protected $name = NULL;
+
+    /**
+     *
+     * Module Odentifier  Variable
+     * @var identifier
+     *
+     */
+    protected $identifier = NULL;
+    /**
+     *
+     * Module Description Variable
+     * @var description
+     *
+     */
+    protected $description = NULL;
+
+    /**
+     *
+     * Module Enable Variable
+     * @var enable
+     *
+     */
+    protected $enable = NULL;
+
+
+
 
     protected $policies = [
         AdminUser::class => AdminUserPolicy::class,
@@ -75,6 +111,7 @@ class Module extends BaseModule {
      */
     public function register() {
 
+        $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
         $this->mapWebRoutes();
         $this->registerViewPath();
         $this->registerAdminConfiguration();
@@ -204,16 +241,8 @@ class Module extends BaseModule {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
-    public function getName() {
-        return 'Mage2 User';
-    }
-
     public function getNameSpace() {
         return __NAMESPACE__;
-    }
-
-    public function getIdentifier() {
-        return 'mage2-user';
     }
     
     public function getPath() {

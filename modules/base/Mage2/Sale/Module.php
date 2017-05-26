@@ -22,18 +22,15 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-
-namespace Mage2\System;
+namespace Mage2\Sale;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\AdminMenu\Facades\AdminMenu;
-use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Auth\Facades\Permission;
+use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
-use Mage2\Framework\Configuration\Facades\AdminConfiguration;
-use Illuminate\Support\Facades\File;
 use Symfony\Component\Yaml\Yaml;
-
+use Illuminate\Support\Facades\File;
 
 class Module extends BaseModule {
 
@@ -83,6 +80,7 @@ class Module extends BaseModule {
     public function boot() {
         $this->registerModule();
         $this->registerAdminMenu();
+        $this->registerTranslationPath();
     }
 
     /**
@@ -94,10 +92,16 @@ class Module extends BaseModule {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
         $this->mapWebRoutes();
         $this->registerViewPath();
-        $this->registerViewComposer();
-        $this->registerAdminConfiguration();
         $this->registerPermissions();
+
+
     }
+
+
+    protected function registerTranslationPath() {
+        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2sale");
+    }
+
 
     /**
      * Define the "web" routes for the application.
@@ -113,49 +117,16 @@ class Module extends BaseModule {
     }
 
     protected function registerViewPath() {
-        $this->loadViewsFrom(__DIR__ . "/views", 'mage2system');
-        View::addLocation(__DIR__ . '/views');
-    }
-
-    /**
-     *
-     *
-     * @return void
-     */
-    public function registerAdminConfiguration() {
-        $adminConfigurations[] = [
-            'title' => 'General Configuration',
-            'description' => 'General System Settings',
-            'edit_action' => 'admin.configuration.general',
-            'sort_order' => 0
-        ];
-
-        foreach ($adminConfigurations as $adminConfiguration) {
-            AdminConfiguration::registerConfiguration($adminConfiguration);
-        }
+        $this->loadViewsFrom(__DIR__. '/views', 'mage2sale');
+        View::addLocation(__DIR__ . DIRECTORY_SEPARATOR .'views');
     }
 
     public function registerAdminMenu() {
-        $adminMenu = [ 'system' => [ 'submenu' => [ 'theme' => [
-                        'label' => 'Themes',
-                        'route' => 'admin.theme.index',
+        $adminMenu = ['sale' => [ 'submenu' => [ 'gift-coupon' => [
+            'label' => 'Gift Coupon',
+            'route' => 'admin.gift-coupon.index',
         ]]]];
-        AdminMenu::registerMenu('mage2-system', $adminMenu);
-        $adminMenu = [ 'system' => [
-                'label' => 'System',
-                'route' => '#',
-                'submenu' => [
-                    'module' => [
-                        'label' => 'Module',
-                        'route' => 'admin.module.index',
-                    ],
-                    'configuration' => [
-                        'label' => 'Configuration',
-                        'route' => 'admin.configuration',
-                    ]
-                ]
-        ]];
-        AdminMenu::registerMenu('mage2-system', $adminMenu);
+        AdminMenu::registerMenu('mage2-order', $adminMenu);
     }
 
     /**
@@ -165,28 +136,23 @@ class Module extends BaseModule {
      */
     protected function registerPermissions() {
 
+        /*
         $permissions = [
-            ['title' => 'Theme List', 'routes' => 'admin.theme.index'],
-            ['title' => 'Theme Upload', 'routes' => "admin.theme.create,admin.theme.store"],
-            ['title' => 'Theme Activate', 'routes' => "admin.theme.activate"],
-            ['title' => 'Theme Destroy', 'routes' => "admin.theme.destroy"],
+            ['title' => 'Gift Coupon List', 'routes' => 'admin.order.index'],
+            ['title' => 'Order View, Send Email Invoice to Customer', 'routes' => "admin.order.view,admin.order.send-email-invoice"],
+            ['title' => 'Order Update Status', 'routes' => "admin.order.change-status,admin.order.update-status"],
         ];
+
 
         foreach ($permissions as $permission) {
             Permission::add($permission);
         }
-    }
-
-    protected function registerViewComposer() {
-        View::composer(['layouts.admin-nav', 'layouts.admin-nav'], 'Mage2\System\ViewComposers\AdminNavComposer');
-
-        View::composer(['layouts.app'], 'Mage2\System\ViewComposers\LayoutAppComposer');
+        */
     }
 
     public function registerModule() {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
-
 
     public function getNameSpace() {
         return __NAMESPACE__;
@@ -195,5 +161,4 @@ class Module extends BaseModule {
     public function getPath() {
         return __DIR__;
     }
-
 }

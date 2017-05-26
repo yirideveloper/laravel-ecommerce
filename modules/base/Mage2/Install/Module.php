@@ -26,10 +26,46 @@ namespace Mage2\Install;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
+use Illuminate\Support\Facades\File;
+use Symfony\Component\Yaml\Yaml;
 
 class Module extends BaseModule
 {
-     /**
+
+
+    /**
+     *
+     * Module Name Variable
+     * @var name
+     *
+     */
+    protected $name = NULL;
+
+    /**
+     *
+     * Module Odentifier  Variable
+     * @var identifier
+     *
+     */
+    protected $identifier = NULL;
+    /**
+     *
+     * Module Description Variable
+     * @var description
+     *
+     */
+    protected $description = NULL;
+
+    /**
+     *
+     * Module Enable Variable
+     * @var enable
+     *
+     */
+    protected $enable = NULL;
+
+
+    /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
@@ -52,9 +88,12 @@ class Module extends BaseModule
      */
     public function register()
     {
+        $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
         $this->mapWebRoutes();
         $this->registerViewPath();
     }
+
+
 
     /**
      * Define the "web" routes for the application.
@@ -67,17 +106,16 @@ class Module extends BaseModule
      */
     protected function mapWebRoutes()
     {
-        require __DIR__.'/routes/web.php';
+        require __DIR__ . '/routes/web.php';
     }
 
     protected function registerViewPath()
     {
-        
-        $this->loadViewsFrom(__DIR__.'/views', 'mage2install');
-        //View::addLocation(__DIR__.'/views');
+        $this->loadViewsFrom(__DIR__ . '/views', 'mage2install');
     }
-    
-    public function getPath() {
+
+    public function getPath()
+    {
         return __DIR__;
     }
 

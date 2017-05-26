@@ -28,7 +28,40 @@ use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
+
+    /**
+     *
+     * Module Name Variable
+     * @var name
+     *
+     */
+    protected $name = NULL;
+
+    /**
+     *
+     * Module Odentifier  Variable
+     * @var identifier
+     *
+     */
+    protected $identifier = NULL;
+    /**
+     *
+     * Module Description Variable
+     * @var description
+     *
+     */
+    protected $description = NULL;
+
+    /**
+     *
+     * Module Enable Variable
+     * @var enable
+     *
+     */
+    protected $enable = NULL;
+
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -41,7 +74,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
         $this->registerModule();
         $this->registerTranslationPath();
     }
@@ -51,14 +85,18 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
+        $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
         $this->mapWebRoutes();
         $this->registerViewPath();
 
     }
 
-    protected function registerTranslationPath() {
-        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2cart");
+
+    protected function registerTranslationPath()
+    {
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2cart");
     }
 
 
@@ -71,31 +109,30 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function mapWebRoutes() {
+    protected function mapWebRoutes()
+    {
         require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath() {
+    protected function registerViewPath()
+    {
         View::addLocation(__DIR__ . '/views');
     }
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
-    public function getName() {
-        return 'Mage2 Cart';
-    }
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
 
-    public function getIdentifier() {
-        return 'mage2-cart';
-    }
 
-    public function getPath() {
+    public function getPath()
+    {
         return __DIR__;
     }
 }

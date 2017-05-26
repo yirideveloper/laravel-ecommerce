@@ -31,8 +31,42 @@ use Mage2\Framework\Payment\Facades\Payment;
 use Mage2\Pickup\Payment\Pickup;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
+use Illuminate\Support\Facades\File;
+use Symfony\Component\Yaml\Yaml;
 
 class Module extends BaseModule {
+
+    /**
+     *
+     * Module Name Variable
+     * @var name
+     *
+     */
+    protected $name = NULL;
+
+    /**
+     *
+     * Module Odentifier  Variable
+     * @var identifier
+     *
+     */
+    protected $identifier = NULL;
+    /**
+     *
+     * Module Description Variable
+     * @var description
+     *
+     */
+    protected $description = NULL;
+
+
+    /**
+     *
+     * Module Enable Variable
+     * @var enable
+     *
+     */
+    protected $enable = NULL;
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -56,6 +90,7 @@ class Module extends BaseModule {
      * @return void
      */
     public function register() {
+        $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
         $this->registerPaymentMethod();
         $this->registerViewPath();
     }
@@ -82,18 +117,10 @@ class Module extends BaseModule {
         ModuleFacade::put($this->getIdentifier(), $this);
     }
 
-    public function getName() {
-        return 'Mage2 Pickup';
-    }
-
     public function getNameSpace() {
         return __NAMESPACE__;
     }
 
-    public function getIdentifier() {
-        return 'mage2-pickup';
-    }
-    
     public function getPath() {
         return __DIR__;
     }
