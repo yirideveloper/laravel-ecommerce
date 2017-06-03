@@ -22,43 +22,35 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
+namespace Mage2\Sale\Requests;
 
+use Illuminate\Foundation\Http\FormRequest as Request;
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-class Mage2SaleSchema extends Migration {
-
+class GiftCouponRequest extends Request
+{
     /**
-     * Install the Mage2 Catalog Module Schema.
+     * Determine if the user is authorized to make this request.
      *
-     * @return void
+     * @return bool
      */
-    public function install() {
-
-
-        Schema::create('gift_coupons', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->string('code');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
-            $table->enum('status',['ENABLED','DISABLED']);
-            $table->timestamps();
-        });
-
+    public function authorize()
+    {
+        return true;
     }
 
     /**
-     * Uninstall the Mage2 Catalog Module Schema.
+     * Get the validation rules that apply to the request.
      *
-     * @return void
+     * @return array
      */
-    public function uninstall() {
-        Schema::dropIfExits('gift_coupons');
+    public function rules()
+    {
+        $validationRule = [];
+
+        $validationRule['title'] = 'required|max:255';
+        $validationRule['code'] = 'required|max:255';
+
+
+        return $validationRule;
     }
-
-
-
 }
