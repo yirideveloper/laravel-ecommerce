@@ -26,6 +26,7 @@
 namespace Mage2\User\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Mage2\User\Requests\ChangePasswordRequest;
 use Mage2\User\Requests\UploadUserImageRequest;
 use Mage2\Framework\System\Controllers\Controller;
@@ -68,6 +69,7 @@ class MyAccountController extends Controller
     public function uploadImagePost(UploadUserImageRequest $request)
     {
 
+
         $user = Auth::user();
 
         $image = $request->file('profile_image');
@@ -76,12 +78,12 @@ class MyAccountController extends Controller
             $user->image_path->destroy();
         }
 
-        $relativePath = 'uploads/users/' . $user->id;
+        $relativePath = '/uploads/users/' . $user->id;
         $path = $relativePath;
 
         $dbPath = $relativePath . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
 
-        Image::upload($image, $path);
+        $image = Image::upload($image, $path);
 
         $user->update(['image_path' => $dbPath]);
 

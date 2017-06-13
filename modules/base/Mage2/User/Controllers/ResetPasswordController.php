@@ -26,7 +26,6 @@
 namespace Mage2\User\Controllers;
 
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Support\Facades\Auth;
 use Mage2\Framework\System\Controllers\Controller;
 
 class ResetPasswordController extends Controller

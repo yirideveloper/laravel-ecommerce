@@ -25,6 +25,8 @@
 namespace Mage2\User\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Mage2\User\Models\AdminUser;
+use Mage2\User\Models\Permission;
 
 class Role extends Model
 {

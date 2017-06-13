@@ -1,6 +1,9 @@
 <?php
 namespace Mage2\User\Listeners;
 
+use Mage2\Framework\Events;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Mage2\System\Models\Configuration;
 use Illuminate\Support\Facades\Mail;
 use Mage2\User\Mail\NewUserMail;
@@ -14,7 +17,7 @@ class RegisteredUserListener
     /**
      * Create the event listener.
      *
-     * @param Configuration $configuration
+     * @return void
      */
     public function __construct(Configuration $configuration)
     {

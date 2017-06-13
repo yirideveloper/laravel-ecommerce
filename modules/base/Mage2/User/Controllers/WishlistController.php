@@ -35,23 +35,16 @@ use Mage2\Catalog\Models\ProductVarcharValue;
 class WishlistController extends Controller
 {
 
-    /**
-     * WishlistController constructor.
-     */
     public function __construct()
     {
         parent::__construct();
         $this->middleware(['frontauth']);
     }
 
-    /**
-     * @param $slug
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function add($slug)
     {
 
-        $id = $this->getProductIdBySlug($slug);
+        $id = $this->_getProductIdBySlug($slug);
         Wishlist::create([
             'user_id' => Auth::user()->id,
             'product_id' => $id,
@@ -60,9 +53,6 @@ class WishlistController extends Controller
         return redirect()->back()->with('notificationText', "Product Added into your Wishlist Successfully!!");
     }
 
-    /**
-     * @return mixed
-     */
     public function mylist()
     {
         $wishlists = Wishlist::where([
@@ -74,25 +64,20 @@ class WishlistController extends Controller
             ->with('wishlists', $wishlists);
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function remove($id)
+    public function remove($slug)
     {
+
+        $id = $this->_getProductIdBySlug($slug);
+
         Wishlist::where([
             'user_id' => Auth::user()->id,
             'product_id' => $id,
         ])->delete();
 
-        return redirect()->back()->with('notificationText', 'Product Removed from your Wishlist Successfully!!');;
+        return redirect()->back()->with('notificationText', "Product Removed from your Wishlist Successfully!!");;
     }
 
-    /**
-     * @param $slug
-     * @return null
-     */
-    protected function getProductIdBySlug($slug)
+    private function _getProductIdBySlug($slug)
     {
         $slugAttribute = ProductAttribute::where('identifier', '=', 'slug')->first();
         $productVarcharValue = ProductVarcharValue::where('value', '=', $slug);
@@ -106,11 +91,6 @@ class WishlistController extends Controller
         }
 
         $product = Product::where('slug', $slug)->first();
-
-        if (!empty($product)) {
-            return $product->id;
-        }
-
-        return null;
+        return $product->id;
     }
 }

@@ -24,6 +24,7 @@
  */
 namespace Mage2\Catalog\Helpers;
 
+use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\Category;
 
 class CategoryHelper
@@ -34,4 +35,6 @@ class CategoryHelper
         $options = Category::pluck('name', 'id');
         return $options;
     }
+
+
 }
