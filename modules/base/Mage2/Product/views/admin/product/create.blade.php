@@ -12,14 +12,14 @@
         <div class="col s12">
             {!! Form::open(['files' => true,'action' => route('admin.product.store'),'method' => 'post']) !!}
 
-            @include('mage2catalog::admin.catalog.product.basic-panel' )
-            @include('mage2catalog::admin.catalog.product.images' )
-            @include('mage2catalog::admin.catalog.product.inventory-panel' )
-            @include('mage2catalog::admin.catalog.product.seo-panel' )
+            @include('mage2product::admin.product.basic-panel' )
+            @include('mage2product::admin.product.images' )
+            @include('mage2product::admin.product.inventory-panel' )
+            @include('mage2product::admin.product.seo-panel' )
 
-            @include('mage2catalog::admin.catalog.product.extra-panel' )
+            @include('mage2product::admin.product.extra-panel' )
 
-            @include('admin.catalog.product.attribute');
+            @include('mage2product::admin.product.attribute');
 
             {!! Form::submit('Create Product') !!}
             {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.product.index').'"']) !!}
