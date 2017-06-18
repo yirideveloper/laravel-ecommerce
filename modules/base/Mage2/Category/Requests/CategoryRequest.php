@@ -22,38 +22,38 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
+namespace Mage2\Category\Requests;
 
+use Illuminate\Foundation\Http\FormRequest as Request;
 
-namespace Mage2\System\ViewComposers;
-
-use Illuminate\Support\Facades\Session;
-use Mage2\Category\Models\Category;
-use Illuminate\View\View;
-use Mage2\System\Models\Configuration;
-
-class LayoutAppComposer
+class CategoryRequest extends Request
 {
-
     /**
-     * Bind data to the view.
+     * Determine if the user is authorized to make this request.
      *
-     * @param  View $view
-     * @return void
+     * @return bool
      */
-    public function compose(View $view)
+    public function authorize()
     {
-        $cart = count(Session::get('cart'));
-        $categoryModel = new Category();
-        $baseCategories = $categoryModel->getAllCategories();
-
-        $metaTitle = Configuration::getConfiguration('general_site_title');
-        $metaDescription = Configuration::getConfiguration('general_site_description');
-
-
-        $view->with('categories', $baseCategories)
-            ->with('cart', $cart)
-            ->with('metaTitle', $metaTitle)
-            ->with('metaDescription', $metaDescription);
+        return true;
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        $validationRule = [];
+        $validationRule['name'] = 'required|max:255';
+        if ($this->getMethod() == 'POST') {
+            $validationRule['slug'] = 'required|max:255|alpha_dash|unique:categories';
+        }
+        if ($this->getMethod() == 'PUT') {
+            $validationRule['slug'] = 'required|max:255|alpha_dash';
+        }
+
+        return $validationRule;
+    }
 }
