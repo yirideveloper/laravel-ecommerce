@@ -22,13 +22,12 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mage2\TaxClass\Models\Country;
 
-class Mage2PageSchema extends Migration
+class Mage2ProductSchema extends Migration
 {
 
     /**
@@ -36,17 +35,9 @@ class Mage2PageSchema extends Migration
      *
      * @return void
      */
-    public function install()
+    public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->string('slug');
-            $table->text('content');
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
-            $table->timestamps();
-        });
+
     }
 
     /**
@@ -54,9 +45,8 @@ class Mage2PageSchema extends Migration
      *
      * @return void
      */
-    public function uninstall()
+    public function down()
     {
-        Schema::create('pages');
     }
 
 }

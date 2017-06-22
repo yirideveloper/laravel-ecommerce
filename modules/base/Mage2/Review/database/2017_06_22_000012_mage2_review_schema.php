@@ -33,11 +33,11 @@ class Mage2ReviewSchema extends Migration
 {
 
     /**
-     * Install the Mage2 Catalog Module Schema.
+     * Install the Mage2 Review Module Schema.
      *
      * @return void
      */
-    public function install()
+    public function up()
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
@@ -52,11 +52,11 @@ class Mage2ReviewSchema extends Migration
     }
 
     /**
-     * Uninstall the Mage2 Catalog Module Schema.
+     * Uninstall the Mage2 Review Module Schema.
      *
      * @return void
      */
-    public function uninstall()
+    public function down()
     {
         Schema::drop('reviews');
     }

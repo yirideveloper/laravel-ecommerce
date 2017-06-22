@@ -36,7 +36,7 @@ class Mage2SystemSchema extends Migration
      *
      * @return void
      */
-    public function install()
+    public function up()
     {
 
         Schema::create('configurations', function (Blueprint $table) {
@@ -171,7 +171,7 @@ class Mage2SystemSchema extends Migration
      *
      * @return void
      */
-    public function uninstall()
+    public function down()
     {
         Schema::drop('configurations');
     }
