@@ -35,7 +35,7 @@ class Mage2OrderReturnSchema extends Migration
      *
      * @return void
      */
-    public function up()
+    public function install()
     {
 
         Schema::create('order_return_requests', function (Blueprint $table) {
@@ -78,7 +78,7 @@ class Mage2OrderReturnSchema extends Migration
      *
      * @return void
      */
-    public function down()
+    public function uninstall()
     {
         Schema::drop('order_return_requests');
         Schema::drop('order_return_request_products');

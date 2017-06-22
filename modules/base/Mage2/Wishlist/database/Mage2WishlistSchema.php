@@ -35,7 +35,7 @@ class Mage2WishlistSchema extends Migration
      *
      * @return void
      */
-    public function up()
+    public function install()
     {
 
 
@@ -109,7 +109,7 @@ class Mage2WishlistSchema extends Migration
      *
      * @return void
      */
-    public function down()
+    public function uninstall()
     {
 
         Schema::drop('addresses');

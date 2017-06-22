@@ -25,7 +25,6 @@
 namespace Mage2\Install\Controllers;
 
 use Exception;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\Request;
 use Mage2\User\Models\AdminUser;
@@ -36,7 +35,6 @@ use Mage2\System\Models\Configuration;
 use Mage2\Framework\Module\Facades\Module;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 
 class InstallController extends Controller
 {
@@ -112,18 +110,14 @@ class InstallController extends Controller
         $module = Module::get($identifier);
 
 
-        $basePath = base_path();
+        try {
 
-        $moduleBasePath = $module->getPath() . DIRECTORY_SEPARATOR . "database";
-        $dbPath = str_replace($basePath, "", $moduleBasePath);
-
-        if (File::exists($moduleBasePath)) {
-
-            try {
-                Artisan::call('migrate', ['--path' => $dbPath]);
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage());
-            }
+            //foreach ($modules as $module) {
+            $identifier = $module->getIdentifier();
+            Artisan::call('mage2:module:install', ['moduleidentifier' => $identifier]);
+            //}
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
         }
 
         foreach ($sessionData as $setIdentifier => $status) {
@@ -131,8 +125,12 @@ class InstallController extends Controller
                 $sessionData[$setIdentifier] = "install";
             }
         }
+        //dd($sessionData);
 
         Session::put('install-module', $sessionData);
+
+        //dd(Session::get('install-module'));
+
         foreach ($sessionData as $identifier => $status) {
             if ($status == "uninstall") {
                 $hasUninstallModule = true;
@@ -140,11 +138,13 @@ class InstallController extends Controller
             }
         }
 
+
         if (true === $hasUninstallModule) {
             return redirect()->route('mage2.install.database.table.get');
         }
 
         return redirect()->route('mage2.install.database.data.get');
+        //return redirect()->route('mage2.install.database.data.get');
     }
 
     public function databaseDataGet()
@@ -156,19 +156,14 @@ class InstallController extends Controller
     {
         if ($request->get('install_data') == "yes") {
 
-            $identifier = $request->get('identifier');
-            $module = Module::get($identifier);
-            $basePath = base_path();
+            try {
+                //Artisan::call('mage2:migrate');
+                $identifier = $request->get('identifier');
+                Artisan::call('mage2:module:install', ['moduleidentifier' => $identifier]);
 
-            $moduleBasePath = $module->getPath() . DIRECTORY_SEPARATOR . "database";
-            $dbPath = str_replace($basePath, "", $moduleBasePath);
 
-            if (File::exists($moduleBasePath)) {
-                try {
-                    Artisan::call('migrate', ['--path' => $dbPath]);
-                } catch (Exception $e) {
-                    throw new Exception($e->getMessage());
-                }
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage());
             }
         }
 

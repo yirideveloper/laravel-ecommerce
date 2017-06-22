@@ -37,7 +37,7 @@ class Mage2CatalogSchema extends Migration
      *
      * @return void
      */
-    public function up()
+    public function install()
     {
 
 
@@ -170,7 +170,7 @@ class Mage2CatalogSchema extends Migration
      *
      * @return void
      */
-    public function down()
+    public function uninstall()
     {
 
         Schema::drop('product_attributes');

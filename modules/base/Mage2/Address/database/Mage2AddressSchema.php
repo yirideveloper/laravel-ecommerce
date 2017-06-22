@@ -22,58 +22,46 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use Mage2\Catalog\Models\ProductAttribute;
-use Mage2\Catalog\Models\AttributeDropdownOption;
-use Mage2\Catalog\Models\ProductAttributeGroup;
-
-class Mage2FeatureSchema extends Migration
+class Mage2AddressSchema extends Migration
 {
+
     /**
-     * Run the migrations.
+     * Install the Mage2 Address Module Schema.
      *
      * @return void
      */
-    public function up()
+    public function install()
     {
 
-        $featureAttribute = ProductAttribute::create([
-            'title' => 'Is Featured',
-            'identifier' => 'is_featured',
-            'field_type' => 'SELECT',
-            'sort_order' => 10,
-            'is_system' => 1,
-            'use_as_variation' => '0',
-        ]);
-
-        AttributeDropdownOption::create([
-            'product_attribute_id' => $featureAttribute->id,
-            'display_text' => 'No'
-        ]);
-
-        AttributeDropdownOption::create([
-            'product_attribute_id' => $featureAttribute->id,
-            'display_text' => 'Yes'
-        ]);
-
-
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->enum('type', ['SHIPPING', 'BILLING']);
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('address1');
+            $table->string('address2');
+            $table->string('postcode');
+            $table->string('city');
+            $table->string('state');
+            $table->integer('country_id')->unsigned();
+            $table->string('phone');
+            $table->timestamps();
+        });
     }
 
     /**
-     * Reverse the migrations.
+     * Uninstall the Mage2 Catalog Module Schema.
      *
      * @return void
      */
-    public function down()
+    public function uninstall()
     {
-        $attribute = ProductAttribute::where('identifier', '=', 'is_featured')->get()->first();
-
-        $attribute->delete();
-
+        Schema::drop('addresses');
     }
+
 }

@@ -25,8 +25,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mage2\TaxClass\Models\Country;
 
-class Mage2CartSchema extends Migration
+class Mage2ProductSchema extends Migration
 {
 
     /**
@@ -34,8 +35,9 @@ class Mage2CartSchema extends Migration
      *
      * @return void
      */
-    public function up()
+    public function install()
     {
+
     }
 
     /**
@@ -43,7 +45,7 @@ class Mage2CartSchema extends Migration
      *
      * @return void
      */
-    public function down()
+    public function uninstall()
     {
     }
 

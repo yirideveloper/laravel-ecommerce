@@ -36,7 +36,7 @@ class Mage2UserSchema extends Migration
      *
      * @return void
      */
-    public function up()
+    public function install()
     {
 
         Schema::create('admin_password_resets', function (Blueprint $table) {
@@ -86,7 +86,7 @@ class Mage2UserSchema extends Migration
      *
      * @return void
      */
-    public function down()
+    public function uninstall()
     {
 
         Schema::drop('admin_password_resets');

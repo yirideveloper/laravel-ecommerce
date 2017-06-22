@@ -40,7 +40,7 @@ class Mage2InstallSchema extends Migration
      *
      * @return void
      */
-    public function up()
+    public function install()
     {
 
         $faker = Factory::create();
@@ -445,7 +445,7 @@ class Mage2InstallSchema extends Migration
      *
      * @return void
      */
-    public function down()
+    public function uninstall()
     {
 
     }

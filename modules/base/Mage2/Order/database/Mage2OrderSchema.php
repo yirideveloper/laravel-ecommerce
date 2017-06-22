@@ -35,7 +35,7 @@ class Mage2OrderSchema extends Migration
      *
      * @return void
      */
-    public function up()
+    public function install()
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
@@ -84,7 +84,7 @@ class Mage2OrderSchema extends Migration
      *
      * @return void
      */
-    public function down()
+    public function uninstall()
     {
         Schema::drop('orders');
         Schema::drop('product_order');

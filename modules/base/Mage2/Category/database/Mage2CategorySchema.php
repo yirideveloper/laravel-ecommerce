@@ -22,13 +22,14 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mage2\Catalog\Models\ProductAttributeGroup;
+use Mage2\Catalog\Models\AttributeDropdownOption;
+use Mage2\Catalog\Models\ProductAttribute;
 
-class Mage2PageSchema extends Migration
+class Mage2CategorySchema extends Migration
 {
 
     /**
@@ -36,17 +37,29 @@ class Mage2PageSchema extends Migration
      *
      * @return void
      */
-    public function up()
+    public function install()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->integer('parent_id')->nullable()->default(NULL);
+            $table->string('name');
             $table->string('slug');
-            $table->text('content');
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('category_product', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('category_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamps();
+        });
+
+        //category_product table foreign key setup
+        Schema::table('category_product', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
+
     }
 
     /**
@@ -54,9 +67,11 @@ class Mage2PageSchema extends Migration
      *
      * @return void
      */
-    public function down()
+    public function uninstall()
     {
-        Schema::create('pages');
+        Schema::drop('categories');
+        Schema::drop('category_product');
+
     }
 
 }
