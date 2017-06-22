@@ -22,11 +22,14 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mage2\TaxClass\Models\Country;
 
-class Mage2CartSchema extends Migration
+
+class Mage2TaxClassSchema extends Migration
 {
 
     /**
@@ -34,8 +37,31 @@ class Mage2CartSchema extends Migration
      *
      * @return void
      */
-    public function install()
+    public function up()
     {
+
+        Schema::create('tax_rules', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title')->nullable()->default(null);
+            $table->integer('country_id')->nullable()->unsigned();
+            $table->string('state_code')->nullable()->default(null);
+            $table->string('city')->nullable()->default(null);
+            $table->string('post_code')->nullable()->default(null);
+            $table->float('percentage', 8, 6)->nullable()->default(null);
+            $table->integer('priority')->nullable()->default(null);
+            $table->timestamps();
+        });
+
+
+        Schema::create('countries', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('code');
+            $table->string('name');
+            $table->timestamps();
+        });
+
+
+
     }
 
     /**
@@ -43,8 +69,10 @@ class Mage2CartSchema extends Migration
      *
      * @return void
      */
-    public function uninstall()
+    public function down()
     {
+        Schema::drop('tax_rules');
+        Schema::drop('countries');
     }
 
 }
