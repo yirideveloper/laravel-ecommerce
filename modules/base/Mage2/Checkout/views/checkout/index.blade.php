@@ -22,10 +22,11 @@
                             </div>
 
                             <?php
-                            $firstName = $lastName = "";
+                            $firstName = $lastName = $phone = "";
                             if (Auth::check()) {
                                 $firstName = Auth::user()->first_name;
                                 $lastName = Auth::user()->last_name;
+                                $phone = Auth::user()->phone;
                             }
 
                             ?>
@@ -79,77 +80,109 @@
 
                             <div class="form-group   col-md-6">
                                 <label class="control-label" for="input-billing-phone">Phone</label>
-                                <input type="text" name="billing[phone]" value="" placeholder="Phone"
+                                <input type="text" name="billing[phone]" value="{{ $phone }}" placeholder="Phone"
                                        id="input-billing-phone" class="form-control">
                             </div>
 
                             <div class="col-md-12">
                                 <h3 class="clearfix">Your Address</h3>
-
                             </div>
 
                             <div id="payment-address-new">
 
-                                <div class="form-group  col-md-12">
-                                    <label class="control-label" for="input-billing-address-1">Address 1</label>
-                                    <input type="text" name="billing[address1]" value="" placeholder="Address 1"
-                                           id="input-billing-address-1" class="form-control">
-                                </div>
 
-                                <div class="form-group col-md-12">
-                                    <label class="control-label" for="input-billing-address-2">Address 2</label>
-                                    <input type="text" name="billing[address2]" value="" placeholder="Address 2"
-                                           id="input-billing-address-2" class="form-control">
-                                </div>
+                                <?php
+                                $address = NULL;
+                                if(NULL !== $user){
+                                    $address = $user->getBillingAddress();
+                                }
+                                ?>
 
-                                <div class="form-group  col-md-6">
-                                    <label for="country">Country</label>
-                                    <select name="billing[country_id]" data-name="country_id"
-                                            class="billing-country form-control billing tax-calculation">
-                                        @foreach($countries as $countryId => $countryName)
-                                            <option
-                                                    value="{{ $countryId }}">{{ $countryName }}</option>
-                                        @endforeach
-                                    </select>
+                                @if(NULL === $address)
+                                    <div class="form-group  col-md-12">
+                                        <label class="control-label" for="input-billing-address-1">Address 1</label>
+                                        <input type="text" name="billing[address1]" value="" placeholder="Address 1"
+                                               id="input-billing-address-1" class="form-control">
+                                    </div>
 
-                                    @if ($errors->has('country'))
-                                        <span class="help-block">
-                                <strong>{{ $errors->first('country') }}</strong>
-                            </span>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label" for="input-billing-address-2">Address 2</label>
+                                        <input type="text" name="billing[address2]" value="" placeholder="Address 2"
+                                               id="input-billing-address-2" class="form-control">
+                                    </div>
+
+                                    <div class="form-group  col-md-6">
+                                        <label for="country">Country</label>
+                                        <select name="billing[country_id]" data-name="country_id"
+                                                class="billing-country form-control billing tax-calculation">
+                                            @foreach($countries as $countryId => $countryName)
+                                                <option
+                                                        value="{{ $countryId }}">{{ $countryName }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        @if ($errors->has('country'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('country') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label" for="input-billing-zone">Region / State</label>
+                                        <input type="text" name="billing[state]" data-name="state_code"
+                                               id="input-billing-zone" class="billing tax-calculation form-control"/>
+                                    </div>
+
+
+                                    <div class="form-group  col-md-6">
+                                        <label class="control-label" for="input-billing-city">City</label>
+                                        <input type="text" data-name="city" name="billing[city]" placeholder="City"
+                                               id="input-billing-city"
+                                               class="billing tax-calculation form-control">
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label" for="input-billing-postcode">Post Code</label>
+                                        <input type="text" data-name="postcode" name="billing[postcode]" value=""
+                                               placeholder="Post Code"
+                                               id="input-billing-postcode" class="billing tax-calculation form-control">
+                                    </div>
+
+                                    @else
+
+                                        <div class="form-group  col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">Billing Address</div>
+                                            <div class="panel-body">
+
+                                                <p>
+                                                    {{ $address->first_name }} {{ $address->last_name }}
+                                                    <br/>
+                                                    {{ $address->address1 }}<br/>
+                                                    {{ $address->address2 }}<br/>
+                                                    {{ $address->area }}<br/>
+                                                    {{ $address->city }}<br/>
+                                                    {{ $address->state }} {{ $address->country->name }}<br/>
+                                                    {{ $address->phone }}<br/>
+                                                </p>
+                                                <input type="hidden" name="billing[id]" value="{{ $address->id }}" />
+                                            </div>
+                                        </div>
+                                        </div>
+
                                     @endif
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label class="control-label" for="input-billing-zone">Region / State</label>
-                                    <input type="text" name="billing[state]" data-name="state_code"
-                                           id="input-billing-zone" class="billing tax-calculation form-control"/>
-                                </div>
 
 
-                                <div class="form-group  col-md-6">
-                                    <label class="control-label" for="input-billing-city">City</label>
-                                    <input type="text" data-name="city" name="billing[city]" placeholder="City"
-                                           id="input-billing-city"
-                                           class="billing tax-calculation form-control">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label class="control-label" for="input-billing-postcode">Post Code</label>
-                                    <input type="text" data-name="postcode" name="billing[postcode]" value=""
-                                           placeholder="Post Code"
-                                           id="input-billing-postcode" class="billing tax-calculation form-control">
-                                </div>
-
-
-                                <div class="form-group col-md-12">
-                                    <label>
-                                        <input type="checkbox" name="use_different_shipping_address"
-                                               onclick="if (this.checked == true){
-                                                        jQuery('.different-shipping-form').slideDown('slow');
-                                                        } else  { jQuery('.different-shipping-form').slideUp('slow'); }
-                                                    ">&nbsp;Use Different Address for Shipping
-                                        Account</label>
-                                </div>
+                                    <div class="form-group col-md-12">
+                                        <label>
+                                            <input type="checkbox" name="use_different_shipping_address"
+                                                   onclick="if (this.checked == true){
+                                                            jQuery('.different-shipping-form').slideDown('slow');
+                                                            } else  { jQuery('.different-shipping-form').slideUp('slow'); }
+                                                        ">&nbsp;Use Different Address for Shipping
+                                            Account</label>
+                                    </div>
 
                             </div>
 
