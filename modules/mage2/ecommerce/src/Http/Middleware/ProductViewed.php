@@ -22,14 +22,30 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Ecommerce\Models\Database;
+namespace Mage2\Ecommerce\Http\Middleware;
 
-class RelatedProduct extends BaseModel
+use Closure;
+use Illuminate\Support\Facades\Auth;
+use Mage2\Ecommerce\Models\Database\Product;
+use Mage2\Ecommerce\Models\Database\UserViewedProduct;
+
+
+class ProductViewed
 {
-    protected $fillable = ['product_id', 'related_product_id'];
 
-    public function product()
+    public function handle($request, Closure $next)
     {
-        $this->belongsTo(Product::class);
+        $route = $request->route();
+        if('product.view' == $route->getName()) {
+            if(Auth::check()) {
+                $userId = Auth::user()->id;
+                $slug = $route->parameter('slug');
+                $product = Product::whereSlug($slug)->first();
+
+                UserViewedProduct::create(['user_id' => $userId, 'product_id' => $product->id]);
+            }
+        }
+
+        return $next($request);
     }
 }
