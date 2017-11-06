@@ -24,17 +24,12 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-class OptionDropdownOption extends BaseModel
+class ProductCombination extends BaseModel
 {
-    protected $fillable = ['option_id', 'display_text'];
 
-    /**
-     * Attribute Dropdown Options belongs to many Product Attribute.
-     *
-     * @return \Mage2\Ecommerce\Models\Database\Option
-     */
-    public function option()
-    {
-        return $this->belongsTo(Option::class);
-    }
+    protected $fillable = ['product_id', 'combination_id'];
+
+
 }
+
+
