@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Login: Mage2 E commerce')
-@section('meta_description', 'My Account Management System for Mage2 E Commerce')
+@section('meta_title', 'Login: AvoRed E commerce')
+@section('meta_description', 'My Account Management System for AvoRed E Commerce')
 
 
 @section('content')
     <div class="row mt-4 mb-4 justify-content-center">
         <div class="col-6">
             <div class="card">
-                <div class="card-header"><span>Mage2 Login</span></div>
+                <div class="card-header"><span>AvoRed Login</span></div>
                 <div class="card-body">
                     <div class="col-12">
                         <form method="POST"

@@ -12,11 +12,11 @@
     <meta name="description" content="@yield('meta_description', $metaDescription )"/>
 
 
-    <link href="{{ asset('vendor/mage2-default/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/mage2-default/css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/mage2-default/css/star-rating.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/avored-default/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/avored-default/css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/avored-default/css/star-rating.min.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('vendor/mage2-default/css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/avored-default/css/styles.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -33,11 +33,11 @@
     </style>
 </head>
 <body>
-<script src="{{ asset('/vendor/mage2-default/js/jquery-3.2.1.slim.min.js') }}"></script>
-<script src="{{ asset('/vendor/mage2-default/js/popper.min.js') }}"></script>
-<script src="{{ asset('/vendor/mage2-default/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/vendor/mage2-default/js/star-rating.min.js') }}"></script>
-<script src="{{ asset('/vendor/mage2-default/js/fontawesome-all.min.js') }}"></script>
+<script src="{{ asset('/vendor/avored-default/js/jquery-3.2.1.slim.min.js') }}"></script>
+<script src="{{ asset('/vendor/avored-default/js/popper.min.js') }}"></script>
+<script src="{{ asset('/vendor/avored-default/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/vendor/avored-default/js/star-rating.min.js') }}"></script>
+<script src="{{ asset('/vendor/avored-default/js/fontawesome-all.min.js') }}"></script>
 
 @include("layouts.nav")
 <div class="container top-buffer  bottom-buffer">

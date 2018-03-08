@@ -2,13 +2,13 @@
     <div class="container">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="https://github.com/mage2/laravel-ecommerce"><i class="fab fa-github"></i> GitHub</a>
+                <a class="nav-link" href="https://github.com/avored/laravel-ecommerce"><i class="fab fa-github"></i> GitHub</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://www.facebook.com/mage2ecommerce/"><i class="fab fa-facebook"></i> Facebook</a>
+                <a class="nav-link" href="https://www.facebook.com/avoredecommerce/"><i class="fab fa-facebook"></i> Facebook</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://twitter.com/mage2ecommerce/"><i class="fab fa-twitter"></i> Twitter</a>
+                <a class="nav-link" href="https://twitter.com/avoredecommerce/"><i class="fab fa-twitter"></i> Twitter</a>
             </li>
         </ul>
         <ul class="navbar-nav">
@@ -54,7 +54,7 @@
             <div class="col-md-6">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <span style="font-size: 32px; font-weight: 500; margin-top: 10px;">
-                        <img src="/img/logo.svg" alt="logo" class="logo">Mage2 Store
+                        <img src="/img/logo.svg" alt="logo" class="logo">AvoRed Store
                     </span>
                 </a>
             </div>
@@ -71,7 +71,7 @@
                 </form>
             </div>
             <!--<div class="col-md-1">
-                <a class="nav-link" href="http://demo.mage2.website/cart/view">Cart (0)</a>
+                <a class="nav-link" href="http://demo.avored.website/cart/view">Cart (0)</a>
             </div>-->
         </div>
     </div>

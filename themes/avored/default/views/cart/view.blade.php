@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('meta_title','Cart Page Mage2 E commerce')
-@section('meta_description','Cart Page Mage2 E commerce')
+@section('meta_title','Cart Page AvoRed E commerce')
+@section('meta_description','Cart Page AvoRed E commerce')
 
 
 @section('content')

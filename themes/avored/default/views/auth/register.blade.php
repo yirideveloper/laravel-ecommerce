@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Register: Mage2 E commerce')
-@section('meta_description', 'Register to Manage your Account for Mage2 E Commerce')
+@section('meta_title', 'Register: AvoRed E commerce')
+@section('meta_description', 'Register to Manage your Account for AvoRed E Commerce')
 
 @section('content')
     <div class="container">

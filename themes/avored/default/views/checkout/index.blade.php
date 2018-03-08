@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('meta_title','Checkout Page Mage2 E commerce')
-@section('meta_description','Checkout Page Mage2 E commerce')
+@section('meta_title','Checkout Page AvoRed E commerce')
+@section('meta_description','Checkout Page AvoRed E commerce')
 
 
 @section('content')
@@ -584,7 +584,7 @@
 
                                             <div class="form-check">
 
-                                                <input class="mage2-payment-option form-check-input {{ $errors->has('payment_option') ? ' is-invalid' : '' }}"
+                                                <input class="avored-payment-option form-check-input {{ $errors->has('payment_option') ? ' is-invalid' : '' }}"
                                                        type="radio" name="payment_option"
                                                        id="{{ $paymentOption->getIdentifier() }}"
                                                        value="{{ $paymentOption->getIdentifier() }}">
@@ -806,7 +806,7 @@
             });
 
 
-            jQuery('.mage2-payment-option').change(function (e) {
+            jQuery('.avored-payment-option').change(function (e) {
                 e.preventDefault();
                 jQuery(this).trigger('paymentOptionChange');
             });

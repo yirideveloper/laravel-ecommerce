@@ -21,7 +21,7 @@
                 @if($pageModel !== null)
                     {!! $pageModel->content !!}
                 @else
-                    <div class="h1">Mage2 E commerce</div>
+                    <div class="h1">AvoRed E commerce</div>
                     <h6>Home Page</h6>
                 @endif
             </div>
