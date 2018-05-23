@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\Http\Middleware\FrontAuth;
+use App\Http\Middleware\RedirectIfFrontAuth;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         //
         $router = $this->app['router'];
+
+        $router->aliasMiddleware('front.auth', FrontAuth::class);
+        $router->aliasMiddleware('front.guest', RedirectIfFrontAuth::class);
 
         parent::boot();
     }

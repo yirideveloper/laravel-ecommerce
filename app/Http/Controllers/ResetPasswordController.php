@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +28,7 @@ class ResetPasswordController extends Controller
     {
         parent::__construct();
 
-        $this->middleware('guest');
+        $this->middleware('front.guest');
     }
 
     protected function guard()

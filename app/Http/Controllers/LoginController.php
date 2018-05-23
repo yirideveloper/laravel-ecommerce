@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use AvoRed\Ecommerce\Models\Database\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
@@ -31,16 +30,18 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/my-account';
 
+
     /**
      * Admin User Controller constructor.
      *
      * @return void
      */
+
     public function __construct()
     {
         parent::__construct();
 
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('front.guest', ['except' => 'logout']);
 
         $url = URL::previous();
         $checkoutUrl = route('checkout.index');
@@ -54,6 +55,7 @@ class LoginController extends Controller
     {
         return Auth::guard('web');
     }
+
 
     /**
      * Handle a login request to the application.
@@ -111,6 +113,6 @@ class LoginController extends Controller
      */
     public function redirectPath()
     {
-        return route('my-account.home');
+        return route("my-account.home");
     }
 }

@@ -1,19 +1,18 @@
 <?php
-
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use AvoRed\Ecommerce\Models\Database\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use AvoRed\Ecommerce\Mail\NewUserMail;
-use App\Http\Controllers\Controller;
 
 class UserActivationController extends Controller
 {
     public function activateAccount($token, $email)
     {
         $user = User::whereEmail($email)->first();
+
 
         if ($token == $user->activation_token) {
             $user->update(['activation_token' => null]);

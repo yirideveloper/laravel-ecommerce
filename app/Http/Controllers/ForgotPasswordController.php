@@ -1,10 +1,8 @@
 <?php
-
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
 
 class ForgotPasswordController extends Controller
 {
@@ -29,7 +27,7 @@ class ForgotPasswordController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('guest');
+        $this->middleware('front.guest');
     }
 
     protected function guard()
