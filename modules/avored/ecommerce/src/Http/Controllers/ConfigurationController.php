@@ -10,6 +10,7 @@ use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
 
 class ConfigurationController extends Controller
 {
+
     /**
      *
      * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
@@ -46,9 +47,15 @@ class ConfigurationController extends Controller
     public function store(Request $request)
     {
         foreach ($request->except(['_token', '_method']) as $key => $value) {
+
             $configModel = $this->repository->findByKey($key);
 
+            if ($configModel->configuration_value == $value) {
+                continue;
+            }
+
             if (null === $configModel) {
+
                 $data['configuration_key'] = $key;
                 $data['configuration_value'] = $value;
 
