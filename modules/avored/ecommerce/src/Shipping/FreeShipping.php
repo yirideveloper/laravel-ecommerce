@@ -9,6 +9,7 @@ use AvoRed\Framework\Shipping\Contracts\Shipping as ShippingContract;
 
 class FreeShipping extends AbstractShipping implements ShippingContract
 {
+
     const CONFIG_KEY = 'shipping_free_shipping_enabled';
 
     /**
@@ -89,6 +90,7 @@ class FreeShipping extends AbstractShipping implements ShippingContract
         return $this->amount;
     }
 
+
     /**
      * Payment Option View Path.
      *
@@ -109,6 +111,7 @@ class FreeShipping extends AbstractShipping implements ShippingContract
         return [];
     }
 
+
     /**
      * Processing Amount for this Shipping Option.
      *
@@ -121,18 +124,5 @@ class FreeShipping extends AbstractShipping implements ShippingContract
         $this->amount = 0.00;
 
         return $this;
-    }
-
-    /**
-     * Calculate the cost of Shipping based on Checkout Form Data.
-     *
-     * @param \Illuminate\Support\Collection $cartProducts
-     * @return self
-     */
-    public function calculate($checkoutFormData)
-    {
-        $view = view($this->view)->with('shippingOption', $this);
-
-        return $view->render();
     }
 }
