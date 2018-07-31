@@ -1,6 +1,5 @@
 <?php
-//$productProperties = $model->getPropertiesAll();
-$productProperties = $model->properties;
+$productProperties = $model->getPropertiesAll();
 ?>
 
 <div class="row">
@@ -13,14 +12,14 @@ $productProperties = $model->properties;
                     multiple="true"
                     class="select2 form-control modal-product-property-select"
                     style="width: 88%">
-                @foreach($propertyOptions as $propertyOption)
+                @foreach($propertyOptions as $propertyId => $propertyName)
                     <option
-                            @if($productProperties->contains('id',$propertyOption->id))
-                                selected
+                            @if($productProperties->contains('property_id',$propertyId))
+                            selected
                             @endif
 
-                            value="{{ $propertyOption->id }}">
-                        {{ $propertyOption->name }}
+                            value="{{ $propertyId }}">
+                        {{ $propertyName }}
                     </option>
                 @endforeach
             </select>
@@ -43,13 +42,10 @@ $productProperties = $model->properties;
 
                 @foreach($productProperties as $productVarcharPropertyValue)
 
-<?php 
-//dd($productVarcharPropertyValue);
-?>
                     @php
                     if(!$productVarcharPropertyValue instanceof \AvoRed\Framework\Models\Database\Property) {
                         $property = $productVarcharPropertyValue->property;
-                        
+                        //dd($productVarcharPropertyValue);
                     } else {
                         $property = $productVarcharPropertyValue;
                     }
@@ -138,11 +134,11 @@ $productProperties = $model->properties;
                             <input type="checkbox"
                                    name="property[{{ str_random() }}][{{ $property->id  }}]"
                                    class="form-check-input"
-                                   id="property-{{ $property->id }}"
                                    value="1"
                                    @if($productVarcharPropertyValue->value == 1)
-                                    checked
+                                   checked
                                    @endif
+                                   id="property-{{ $property->id }}"
                             />
 
 

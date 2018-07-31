@@ -791,9 +791,15 @@ class Provider extends ServiceProvider
      */
     public function registerConfigData()
     {
+        /*
         $authConfig = $this->app['config']->get('auth', []);
+        $this->app['config']->set(
+                            'auth', 
+                            array_merge_recursive(require __DIR__ . '/../config/avored-auth.php', $authConfig)
+                            );
 
-        $this->app['config']->set('auth', array_merge_recursive(require __DIR__ . '/../config/avored-auth.php', $authConfig));
+        */
+        
         $this->mergeConfigFrom(__DIR__ . '/../config/avored-ecommerce.php', 'avored-ecommerce');
     }
 
@@ -840,7 +846,7 @@ class Provider extends ServiceProvider
      */
     protected function registerModelContracts()
     {
-        $this->app->bind(AdminUserInterface::class, AdminUserRepository::class);
+        //$this->app->bind(AdminUserInterface::class, AdminUserRepository::class);
         $this->app->bind(MenuInterface::class, MenuRepository::class);
         $this->app->bind(PageInterface::class, PageRepository::class);
         $this->app->bind(RoleInterface::class, RoleRepository::class);
