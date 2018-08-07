@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use AvoRed\Framework\Models\Database\Page;
+use AvoRed\Ecommerce\Models\Database\Page;
 
 class PageController extends Controller
 {
