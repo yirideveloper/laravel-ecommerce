@@ -69,7 +69,7 @@ class Module extends ServiceProvider
      */
     protected function registerAdminMenu()
     {
-        $cmsMenu = AdminMenuFacade::get('content');
+        $cmsMenu = AdminMenuFacade::get('cms');
 
         $bannerMenu = new AdminMenu();
         $bannerMenu->key('banner')
