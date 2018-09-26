@@ -24,7 +24,7 @@
                         <a href="#">Privacy & Cookie Policy</a>
                     </li>
                     <li class="nav item">
-                        <a href="{{ route('my-account.order.list') }}">Orders</a>
+                        <a href="#">Orders</a>
                     </li>
                     <li class="nav item">
                         <a href="#">Returns</a>
