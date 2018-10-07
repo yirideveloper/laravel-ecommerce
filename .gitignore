@@ -18,6 +18,7 @@ yarn-error.log
 
 # AvoRed Specific
 /packages
+/themes/*
 /public/cov/*
 
 
