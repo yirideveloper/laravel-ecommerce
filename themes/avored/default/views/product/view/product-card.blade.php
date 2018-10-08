@@ -14,7 +14,7 @@
             </h3>
 
             <p class="product-price">
-                {{ Session::get('currency_code') }} {{ number_format($product->price,2) }}
+                $ {{ number_format($product->price,2) }}
             </p>
 
             <div>
