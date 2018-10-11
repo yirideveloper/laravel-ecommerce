@@ -1,28 +1,6 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 2.9.5.8
- - HotFix AvoRed DataGrid Collection doesn't exist order by method only works for Eloquent Model
- - HotFix AvoRed Cart Page Sessing class missing
- - Added support for currency symbol
-
-## 2.9.5.7
-
-### Added
-- Added Github release badge to the readme.
-- Added new feature **order returns**: this allows your customers to return a product if the product is damaged or if the customer just dont like the item.
-- Added another database table field for properties table: is_visible_frontend.
-- Remove hard coded currency code.
-- Added Laravel Self-Diagnosis package and added code into an `avored:install` command to check if there is an error then it won't allow you to installed it.
-
-### Fixed
-Updated Dockerfile to use Ubuntu 18.04 and PHP7.2.
-
-## 2.9.5.6
-
-### Fixed
-- Fixed backend theme
-
 ## 2.9.5
 ### Added
 
