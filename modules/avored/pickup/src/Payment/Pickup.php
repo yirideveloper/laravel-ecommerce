@@ -23,7 +23,7 @@ class Pickup extends AbstractPayment implements PaymentContract
      *
      * @var string
      */
-    protected $name;
+    protected $name = 'Pickup From Store';
 
     /**
      * Payment options View Path.
@@ -59,7 +59,6 @@ class Pickup extends AbstractPayment implements PaymentContract
      */
     public function name()
     {
-        $this->name = __('avored-pickup::pickup.title');
         return $this->name;
     }
 

@@ -2,7 +2,8 @@
     <div class="card-header">Payment Options</div>
     <div class="card-body payment-options">
 
-        <p>{{ __('checkout.payment_helper') }}</p>
+        <p>Please select the preferred payment method to use on this
+            order.</p>
 
         <div class="payment-radio-options">
             @foreach($paymentOptions as $paymentOption)
@@ -45,6 +46,9 @@
                 </div>
             @endif
         </div>
+
+       
+
     </div>
 </div>
 
