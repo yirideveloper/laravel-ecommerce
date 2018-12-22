@@ -29,8 +29,10 @@
                                 <?php $attributeText .= $attribute['variation_display_text'] . ": "; ?>
                             @endif
                         @endforeach
-                        <p>Attributes: <span class="text-success"><strong>{{ $attributeText}}</strong></span></p>
                     @endif
+                    <p>Attributes: <span class="text-success"><strong>{{ $attributeText}}</strong></span>
+                    </p>
+
                 </div>
             </div>
         </td>
@@ -39,16 +41,14 @@
             <input type="text" class="form-control" name="qty"
                    value="{{ $product->qty() }}">
             <input type="hidden" name="slug" value="{{$product->slug() }}"/>
-            
-            @if(null !== $product->attributes() && count($product->attributes()))
-                @foreach($product->attributes() as $attribute)
-                    @foreach($attribute as $fieldName => $fieldValue)
-                        <input type="hidden" 
-                            name="attributes[{{ $attribute['attribute_id']}}][{{ $fieldName }}]" 
-                            value="{{ $fieldValue }}"/>
-                    @endforeach
+
+            @foreach($product->attributes() as $attribute)
+                @foreach($attribute as $fieldName => $fieldValue)
+                    <input type="hidden" 
+                        name="attributes[{{ $attribute['attribute_id']}}][{{ $fieldName }}]" 
+                        value="{{ $fieldValue }}"/>
                 @endforeach
-            @endif
+            @endforeach
         </td>
 
         <td class="col-sm-1 col-1 text-center">
