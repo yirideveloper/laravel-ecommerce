@@ -9,7 +9,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\DB;
 
 class Controller extends BaseController
 {
@@ -17,14 +16,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $dbConnectError = false;
-        try {
-            DB::connection()->getPdo();
-        } catch (\Exception $e) {
-            $dbConnectError = true;
-        }
-        
-        if (false === $dbConnectError && Schema::hasTable('configurations')) {
+        if (Schema::hasTable('configurations')) {
             $themeViewPath = Configuration::getConfiguration('active_theme_path');
             $fileViewFinder = View::getFinder();
             $fileViewFinder->prependLocation(base_path($themeViewPath));
