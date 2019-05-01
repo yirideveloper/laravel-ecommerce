@@ -6,37 +6,35 @@ use Illuminate\Http\Request;
 use AvoRed\Framework\Cart\Facade as Cart;
 use AvoRed\Framework\Models\Contracts\ProductInterface;
 use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
-use App\Http\Requests\CartRequest;
 
 class CartController extends Controller
 {
     /**
-     * Product Repository for Cart Controller
+     *
      * @var \AvoRed\Framework\Models\Repository\ProductRepository
      */
     protected $repository;
 
     /**
-     * Configuration Repository for Cart Controller
+     *
      * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
      */
     protected $configurationRepository;
 
-    public function __construct(
-        ProductInterface $repository,
-        ConfigurationInterface $configRep
-    ) {
+    public function __construct(ProductInterface $repository, ConfigurationInterface $configRep)
+    {
         parent::__construct();
+
         $this->repository = $repository;
         $this->configurationRepository = $configRep;
     }
 
     /**
      * Add To Cart Product
-     * @param \App\Http\Requests\CartRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function addToCart(CartRequest $request)
+    public function addToCart(Request $request)
     {
         $slug = $request->get('slug');
         $qty = abs($request->get('qty', 1));
