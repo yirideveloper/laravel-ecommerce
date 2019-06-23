@@ -24,6 +24,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        $router = $this->app['router'];
 
         parent::boot();
     }
@@ -51,7 +52,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
+        Route::middleware(['web', 'currency'])
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
     }

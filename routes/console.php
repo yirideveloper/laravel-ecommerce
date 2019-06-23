@@ -12,7 +12,8 @@ use Illuminate\Foundation\Inspiring;
 | simple approach to interacting with each command's IO methods.
 |
 */
+use Illuminate\Support\Facades\Artisan;
 
-Artisan::command('inspire', function () {
+Artisan::command('avored', function () {
     $this->comment(Inspiring::quote());
-})->describe('Display an inspiring quote');
+})->describe('Hello From AvoRed E commerce');

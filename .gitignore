@@ -1,11 +1,28 @@
+# Ignore swp files from vim
+*.swp
+**/.DS_Store
+
+# Laravel 5 Specific
 /node_modules
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
-.env
-.phpunit.result.cache
+/.vscode
+/.vagrant
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.env
+
+# AvoRed Specific
+/packages
+/public/cov/*
+
+
+# Etc
+composer.lock
+public/mix-manifest.json
+package-lock.json
+*.crt
