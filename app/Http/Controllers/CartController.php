@@ -3,34 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use AvoRed\Framework\Models\Contracts\ProductInterface;
+use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
+use App\Http\Requests\CartRequest;
 use AvoRed\Framework\Support\Facades\Cart;
 
 class CartController extends Controller
 {
-
-    /**
-     * @var \AvoRed\Framework\Database\Repository\CategoryRepository
-     */
-    protected $categoryRepository;
-
-    /**
-     * home controller construct
-     */
-    public function __construct()
-    {
-        // $this->categoryRepository = $categoryRepository;
-    }
-
     /**
      * Product Add To Cart
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function addToCart(Request $request)
+    public function addToCart(CartRequest $request)
     {
         Cart::add($request->get('slug'), $request->get('qty'));
 
-        return redirect()->back()->with('success' , __('Product Added to cart successfully!'));
+        return redirect()
+            ->back()
+            ->with('success', __('Product Added to cart successfully!'));
     }
 
     /**
