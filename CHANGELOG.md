@@ -1,1 +1,0 @@
-# AvoRed Shopping Cart Changelog
