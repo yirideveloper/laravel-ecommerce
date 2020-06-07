@@ -8,7 +8,7 @@ Route::middleware(['web'])
 
 $baseAdminUrl = config('avored.admin_url');
 
-Route::middleware(['web', 'admin.auth:admin'])
+Route::middleware(['web', 'admin.auth'])
     ->prefix($baseAdminUrl)
     ->name('admin.')
     ->group(function () {
