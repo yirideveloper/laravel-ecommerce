@@ -17,51 +17,31 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    @if(file_exists(public_path('mix-manifest.json')))
-        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    @else
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @endif
-    {{-- <script src="https://js.stripe.com/v3/"></script> --}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @stack('styles')
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
     <div id="app">
         <avored-layout inline-template>
             <div>
-                @include('partials.nav')
-                <div class="mt-5">
+                <a-layout id="components-layout-demo-top" class="layout">
+                    @include('partials.nav')
+
+                    <a-layout-content style="padding: 0 50px">
                     @include('partials.breadcrumb')
-                    <div class="bg-white container mx-auto">
-                        <div class="flex">
-                            <div class="flex-1 ml-5">
-                                <div>
-                                    @yield('breadcrumb')
-                                </div>
-                                @yield('content')
-                            </div>
-                        </div>
+                    <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
+                        @yield('content')
                     </div>
-                </div>
-                
-                <div  class="border-t">
+                    </a-layout-content>
+                    
                     @include('partials.footer')
-                </div>
+                </a-layout>
             </div>
         </avored-layout>
     </div>
-   
-    @if(file_exists(public_path('mix-manifest.json')))
-        <script src="{{ mix('js/avored.js') }}"></script>
-    @else
-        <script src="{{ asset('js/avored.js') }}"></script>
-    @endif
-    
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/review.js') }}"></script>
     @stack('scripts')
-    
-    @if(file_exists(public_path('mix-manifest.json')))
-        <script src="{{ mix('js/app.js') }}"></script>
-    @else
-        <script src="{{ asset('js/app.js') }}"></script>
-    @endif
 </body>
 </html>

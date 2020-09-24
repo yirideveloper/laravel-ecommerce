@@ -1,100 +1,90 @@
-
 <script>
-import axios from "axios"
+
+import axios from 'axios'
 
 export default {
-    props: ["items", "couponUrl", "cartDeleteUrl", "cartUpdateUrl", 'defaultCurrency', 'checkoutUrl', 'cartTotal', 'discountTotal'],
-    data() {
+    props: ['items', 'couponUrl', 'cartDeleteUrl', 'cartUpdateUrl'],
+    data () {
         return {
+            form: this.$form.createForm(this),
             showCartActionBtn: false,
             cartActionProducts: [],
-            cartUpdateModalVisibility: false,
-            totalTax: 0,
-            subtotal: 0,
-            total: 0,
-            promotionCode: '',
-            cartUpdateDisplay: false,
-            cartItems: null
+            cartUpdateModalVisibility: false
         };
     },
     methods: {
-        checkboxChange(event, product) {
-            if (event.target.checked) {
+        handleCouponSubmit(e) {
+            this.form.validateFields((err, values) => {
+                if (err) {
+                    e.preventDefault();
+                }
+          });
+        },
+        clickOnCheckBox(e, product) {
+            if (e.target.checked) {
                 this.cartActionProducts.push(product)
             } else {
-                const index = this.cartActionProducts.findIndex(
-                    ele => ele.slug === product.slug
-                )
+                const index = this.cartActionProducts.findIndex(ele => ele.slug === product.slug);
                 this.cartActionProducts.splice(index, 1)
             }
-
-             if (this.cartActionProducts.length > 0) {
-                this.showCartActionBtn = true;
+            if (this.cartActionProducts.length > 0) {
+                this.showCartActionBtn = true
             } else {
-                this.showCartActionBtn = false;
+                this.showCartActionBtn = false
             }
-        },
-        applyPromotionCodeClicked() {
-            var app = this
-            axios({
-                method: "post",
-                url: this.couponUrl + '/' + this.promotionCode
-            }).then(response => {
-                if (response.data.success == true) {
-                    app.$alert(response.data.message)
-                    location.reload();
-                } else {
-                    app.$alert(response.data.message)
-                }
-            });
         },
         delteCartProductClick() {
             var app = this
             axios({
-                method: "delete",
-                url: this.cartDeleteUrl,
-                data: { products: this.cartActionProducts }
+                method: 'delete',
+            url: this.cartDeleteUrl,
+                data: {'products' : this.cartActionProducts}
             }).then(response => {
                 if (response.data.success == true) {
-                    app.$alert(response.data.message)
-                    location.reload();
+                    app.$notification.success({
+                        key: 'cart.destroy.success',
+                        message: response.data.message,
+                    });
+                    location.reload()
                 } else {
-                    app.$alert(response.data.message)
+                     app.$notification.error({
+                        key: 'cart.destroy.error',
+                        message: response.data.message,
+                    });
                 }
-            });
+                
+            })
         },
         updateCartProductClick() {
-            this.cartUpdateModalVisibility = !this.cartUpdateModalVisibility;
+            this.cartUpdateModalVisibility = !this.cartUpdateModalVisibility
         },
         clickOnCartUpdateCancel() {
-            this.cartUpdateModalVisibility = false;
+            this.cartUpdateModalVisibility = false
         },
-        clickOnCartUpdate() {
+        clickOnCartUpdateOk() {
             var app = this
+            
             axios({
-                method: "put",
+                method: 'put',
                 url: this.cartUpdateUrl,
-                data: { products: this.cartActionProducts }
+                data: {'products' : this.cartActionProducts}
             }).then(response => {
                 if (response.data.success == true) {
-                    app.$alert(response.data.message)
-                    location.reload();
+                    app.$notification.success({
+                        key: 'cart.update.success',
+                        message: response.data.message,
+                    });
+                    location.reload()
                 } else {
-                    app.$alert(response.data.message)
+                     app.$notification.error({
+                        key: 'cart.update.error',
+                        message: response.data.message,
+                    });
                 }
-            });
+            })
         }
     },
     mounted() {
-        this.cartItems = this.items
-        if (this.items.length > 0 ) {
-            this.items.forEach((item) => {
-                this.subtotal += item.price * item.qty
-                this.total += item.tax
-                this.totalTax += item.tax
-            })
-            this.total = this.subtotal + this.totalTax
-        }
     }
-};
+}
 </script>

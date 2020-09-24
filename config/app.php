@@ -166,7 +166,6 @@ return [
          * Package Service Providers...
          */
 
-         AvoRed\Framework\AvoRedProvider::class,
         /*
          * Application Service Providers...
          */
@@ -233,12 +232,6 @@ return [
         'Shipping' => AvoRed\Framework\Support\Facades\Shipping::class,
         'Widget' => AvoRed\Framework\Support\Facades\Widget::class,
 
-        'Breadcrumb' => \AvoRed\Framework\Support\Facades\Breadcrumb::class,
-        'Menu' => \AvoRed\Framework\Support\Facades\Menu::class,
-        'Module' => \AvoRed\Framework\Support\Facades\Module::class,
-        'Permission' => \AvoRed\Framework\Support\Facades\Permission::class,
-        'Cart' => \AvoRed\Framework\Support\Facades\Cart::class,
-        'Tab' => \AvoRed\Framework\Support\Facades\Tab::class,
     ],
 
 ];

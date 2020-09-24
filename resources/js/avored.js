@@ -1,15 +1,12 @@
 
-window.Vue = require('vue')
 
-window.AvoRed = (function() {
+var AvoRed = (function() {
     return {
         initialize: function(callback) {
-            callback(window.Vue)
+            callback(Vue)
         }
-    }
-})()
+    };
+})();
 
 
-window.EventBus = new Vue()
-
-exports = module.exports = AvoRed
+exports = module.exports = AvoRed;

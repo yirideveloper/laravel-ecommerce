@@ -1,10 +1,8 @@
 <template>
     <div>
-        <avored-toggle
-            label-text="Cash On Delivery"
-            field-name="payment_option"
-            toggle-on-value="a-cash-on-delivery"
-        ></avored-toggle>
+        <a-switch @change="handlePaymentChange($event, 'a-cash-on-delivery')">
+        </a-switch> 
+        Cash On Delivery
     </div>    
 </template>
 
@@ -25,12 +23,12 @@ export default {
             } else {
                 this.selectedCashOnDeliveryPaymentOption = false
             }
-            window.EventBus.$emit('selectedPaymentIdentifier', identifier)
+            EventBus.$emit('selectedPaymentIdentifier', identifier)
         }
     },
     mounted() {        
         var app = this
-        var eventBus = window.EventBus
+        var eventBus = EventBus
         eventBus.$on('placeOrderBefore', function() {
             if (app.selectedCashOnDeliveryPaymentOption) {
                 eventBus.$emit('placeOrderAfter')

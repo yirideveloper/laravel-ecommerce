@@ -43,7 +43,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $userAddresses = $this->addressRepository->getByCustomerId(Auth::user()->id);
+        $userAddresses = $this->addressRepository->getByUserId(Auth::user()->id);
 
         return view('account.address.index')
             ->with(compact('userAddresses'));
@@ -71,7 +71,7 @@ class AddressController extends Controller
      */
     public function store(AddressRequest $request)
     {
-        $request->merge(['customer_id' => Auth::guard('customer')->user()->id]);
+        $request->merge(['user_id' => Auth::user()->id]);
         $this->addressRepository->create($request->all());
 
         return redirect()->route('account.address.index');
@@ -85,7 +85,8 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-        //
+        //Show address information about address
+        var_dump($id);
     }
 
     /**

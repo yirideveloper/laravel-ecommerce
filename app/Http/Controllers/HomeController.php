@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use AvoRed\Framework\Database\Contracts\PageModelInterface;
 use AvoRed\Framework\Database\Contracts\ProductModelInterface;
 use AvoRed\Wishlist\Database\Contracts\WishlistModelInterface;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -47,13 +46,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
+        $wishlists = $this->wishlistRepository->userWishlists();
         $page = $this->pageRepository->findBySlug('home-page');
         $allProducts = $this->productRepository->getAllWithoutVaiation();
-        $heroProduct = null;
-        if ($allProducts->count() > 0) {
-            $heroProduct = $allProducts->load('mainImage')->random(1)->first();
-        }
+        
         $products = collect();
         
         if ($allProducts->count() > 0) {
@@ -61,11 +57,9 @@ class HomeController extends Controller
         } 
         if ($allProducts->count() >= 8) {
             $products = $allProducts->load('mainImage')->random(8)->shuffle();
-        }
+        } 
 
         return view('home')
-            ->with('heroProduct', $heroProduct)
-            ->with('products', $products)
-            ->with('page', $page);
+            ->with(compact('products', 'page', 'wishlists'));
     }
 }

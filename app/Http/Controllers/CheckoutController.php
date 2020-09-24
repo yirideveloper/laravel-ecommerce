@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Support\Facades\Payment;
 use AvoRed\Framework\Support\Facades\Shipping;
 use AvoRed\Framework\Database\Contracts\AddressModelInterface;
@@ -39,8 +41,8 @@ class CheckoutController extends Controller
     public function show()
     {
         $addresses = Collection::make([]);
-        if (Auth::guard('customer')->check()) {
-            $addresses = $this->addressRepository->getByCustomerId(Auth::guard('customer')->user()->id);
+        if (Auth::check()) {
+            $addresses = $this->addressRepository->getByUserId(Auth::user()->id);
         }
 
         $paymentOptions = Payment::all();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use AvoRed\Framework\Support\Facades\Cart;
@@ -9,7 +10,6 @@ use AvoRed\Framework\Database\Models\Order;
 use AvoRed\Framework\Database\Models\Currency;
 use AvoRed\Framework\Database\Contracts\OrderModelInterface;
 use AvoRed\Framework\Database\Contracts\AddressModelInterface;
-use AvoRed\Framework\Database\Contracts\CustomerModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderStatusModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductAttributeModelInterface;
@@ -30,7 +30,7 @@ class OrderController extends Controller
     /**
      * @var \AvoRed\Framework\Database\Repository\OrderProductRepository
      */
-    protected $orderProductRepository;
+    protected $oderProductRepository;
 
     /**
      * @var \AvoRed\Framework\Database\Repository\OrderProductAttributeRepository
@@ -43,18 +43,13 @@ class OrderController extends Controller
     protected $oderStatusRepository;
 
     /**
-     * @var \AvoRed\Framework\Database\Repository\CustomerRepository
+     * User Model.
+     * @var \App\User
      */
-    protected $customerRepository;
+    protected $user;
 
     /**
-     * Customer Model.
-     * @var \App\Customer
-     */
-    protected $customer;
-
-    /**
-     * Customer Shipping Address Model.
+     * User Shipping Address Model.
      * @var \AvoRed\Framework\Database\Models\Address
      */
     protected $shippingAddress;
@@ -66,31 +61,28 @@ class OrderController extends Controller
     protected $orderStatus;
 
     /**
-     * Customer Billing Address Model.
+     * User Billing Address Model.
      * @var \AvoRed\Framework\Database\Models\Address
      */
     protected $billingAddress;
 
     /**
      * order controller construct.
-     * @param \AvoRed\Framework\Database\Contracts\CustomerModelInterface
      * @param \AvoRed\Framework\Database\Contracts\AddressModelInterface
      * @param \AvoRed\Framework\Database\Contracts\OrderModelInterface
      * @param \AvoRed\Framework\Database\Contracts\OrderStatusModelInterface
      */
     public function __construct(
-        CustomerModelInterface $customerRepository,
         AddressModelInterface $addressRepository,
         OrderModelInterface $orderRepository,
         OrderStatusModelInterface $orderStatusRepository,
         OrderProductModelInterface $orderProductRepository,
         OrderProductAttributeModelInterface $orderProductAttributeRepository
     ) {
-        $this->customerRepository = $customerRepository;
         $this->addressRepository = $addressRepository;
         $this->orderRepository = $orderRepository;
         $this->oderStatusRepository = $orderStatusRepository;
-        $this->orderProductRepository = $orderProductRepository;
+        $this->oderProductRepository = $orderProductRepository;
         $this->oderProductAttributeRepository = $orderProductAttributeRepository;
     }
 
@@ -100,7 +92,7 @@ class OrderController extends Controller
      */
     public function place(Request $request)
     {
-        $this->customer($request);
+        $this->user($request);
         $this->shippingAddress($request);
         $this->billingAddress($request);
         $this->paymentOption();
@@ -111,7 +103,7 @@ class OrderController extends Controller
             'payment_option' => $request->get('payment_option'),
             'order_status_id' => $this->orderStatus->id,
             'currency_id' => $this->getCurrency()->id,
-            'customer_id' => $this->customer->id,
+            'user_id' => $this->user->id,
             'shipping_address_id' => $this->shippingAddress->id,
             'billing_address_id' => $this->billingAddress->id,
         ];
@@ -125,22 +117,20 @@ class OrderController extends Controller
     }
 
     /**
-     * Create/Get Customer to placed an Order.
-     * @param Request $request
+     * Create/Get User to placed an Order.
      * @return self
      */
-    public function customer($request)
+    public function user($request)
     {
-        if (Auth::guard('customer')->check()) {
-            $this->customer = Auth::guard('customer')->user();
-        } else {            
+        if (Auth::check()) {
+            $this->user = Auth::user();
+        } else {
             $email = $request->get('email');
 
-            $this->customer = $this->customerRepository->findByEmail($email);
+            $this->user = User::whereEmail($email)->first();
 
-            if ($this->customer === null) {
-                $this->customer = $this->customerRepository->create($request->all());
-               
+            if ($this->user === null) {
+                $this->user = User::create($request->all());
             }
         }
 
@@ -148,7 +138,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Create/Get Customer to placed an Order.
+     * Create/Get User to placed an Order.
      * @return \AvoRed\Framework\Database\Models\Address $addressModel
      */
     public function shippingAddress($request)
@@ -161,7 +151,7 @@ class OrderController extends Controller
             return $this;
         }
         $addressData['type'] = 'SHIPPING';
-        $addressData['customer_id'] = $this->customer->id;
+        $addressData['user_id'] = $this->user->id;
 
         $this->shippingAddress = $this->addressRepository->create($addressData);
 
@@ -169,7 +159,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Create/Get Customer to placed an Order.
+     * Create/Get User to placed an Order.
      * @return \AvoRed\Framework\Database\Models\Address $addressModel
      */
     public function billingAddress($request)
@@ -185,7 +175,7 @@ class OrderController extends Controller
         $flag = $request->get('use_different_address');
         if ($flag == 'true') {
             $addressData['type'] = 'BILLING';
-            $addressData['customer_id'] = $this->customer->id;
+            $addressData['user_id'] = $this->user->id;
 
             $this->billingAddress = $this->addressRepository->create($addressData);
         } else {
@@ -210,7 +200,6 @@ class OrderController extends Controller
     public function paymentOption()
     {
         $payment = Payment::get(request()->get('payment_option'));
-
         $payment->process();
     }
 
@@ -251,7 +240,7 @@ class OrderController extends Controller
                 'price' => $cartProduct->price(),
                 'tax_amount' => $cartProduct->taxAmount(),
             ];
-            $orderProductModel = $this->orderProductRepository->create($orderProductData);
+            $orderProductModel = $this->oderProductRepository->create($orderProductData);
 
             $attributes = $cartProduct->attributes();
 
@@ -262,7 +251,8 @@ class OrderController extends Controller
                         'attribute_id' => $attribute['attribute_id'],
                         'attribute_dropdown_option_id' => $attribute['attribute_dropdown_option_id'],
                     ];
-                    $this->oderProductAttributeRepository->create($orderProductAttributeData);
+                    $orderProductAttributeModel = $this->oderProductAttributeRepository
+                        ->create($orderProductAttributeData);
                 }
             }
         }

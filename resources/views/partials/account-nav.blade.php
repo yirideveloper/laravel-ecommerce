@@ -1,41 +1,41 @@
-<nav class="flex">
-<ul class="block text-center">
-    <li class="p-5 borer-b">
-        {{-- @if(empty(Auth::guard('customer')->user()->image))
-            <img class="rounded-full" src="https://placehold.it/250x250" {{ Auth::guard('customer')->user()->name }} />
+<a-menu
+    mode="inline"
+    theme="light"
+    :default-selected-keys="['{{  Route::currentRouteName() }}']"
+    style="height: 100%"
+>
+    <a-menu-item style="min-height:120px;text-align:center">
+        @if(empty(Auth::user()->image))
+            <a-avatar 
+                shape="square"
+                style="backgroundColor:#E64448;width:100%;height:100px">
+                {{ Auth::user()->name }}</a-avatar>
         @else
-            <img src="{{ '/storage/' . Auth::guard('customer')->user()->image }}" />
-        @endif --}}
-    </li>
-    <li class="py-3 border-b block">
-        <a class="py-3"  href="{{ route('account.dashboard') }}">
+            <a-avatar 
+                shape="square"
+                style="width:100%; height: auto"
+                src="{{ '/storage/' . Auth::user()->image }}">
+            </a-avatar>
+        @endif
+    </a-menu-item>
+    <a-menu-item key="account.dashboard">
+        <a href="{{ route('account.dashboard') }}">
             {{ __('Profile') }}
         </a>
-    </li>
-    <li class="py-3 border-b block">
-        <a class="py-3" href="{{ route('account.upload') }}">
+    </a-menu-item>
+    <a-menu-item key="account.upload">
+        <a href="{{ route('account.upload') }}">
             {{ __('Upload Photo') }}
         </a>
-    </li>
-    <li class="py-3 border-b block">
-        <a class="py-3" href="{{ route('account.address.index') }}">
+    </a-menu-item>
+    <a-menu-item key="account.address.index">
+        <a href="{{ route('account.address.index') }}">
             {{ __('Addresses') }}
         </a>
-    </li>
-    <li class="py-3 border-b block">
-        <a class="py-3" href="{{ route('account.order.index') }}">
+    </a-menu-item>
+    <a-menu-item key="account.order.index">
+        <a href="{{ route('account.order.index') }}">
             {{ __('Orders') }}
         </a>
-    </li>
-    <li class="py-3 border-b block">
-        <a class="py-3" href="{{ route('account.wishlist.index') }}">
-            {{ __('avored.my_wishlist') }}
-        </a>
-    </li>
-    <li class="py-3 border-b block">
-        <a class="py-3" href="{{ route('logout') }}">
-            {{ __('Logout') }}
-        </a>
-    </li>
-</ul>
-</nav>
+    </a-menu-item>
+</a-menu>

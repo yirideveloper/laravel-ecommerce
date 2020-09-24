@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-<div class="flex">
-    <div class="mr-3">
-      <a href="{{ route('home') }}" class="text-gray-700" title="home">
-        {{ __('avored.home') }} >>
+<a-breadcrumb style="margin: 16px 0">
+    <a-breadcrumb-item>
+      <a href="{{ route('home') }}" title="home">
+        {{ __('Home') }}
       </a>
-    </div>
-    <div class="text-gray-700">
-        {{ __('avored.checkout') }}
-    </div>
-</div>
+    </a-breadcrumb-item>
+    <a-breadcrumb-item>
+        {{ __('Checkout') }}
+    </a-breadcrumb-item>
+</a-breadcrumb>
 @endsection
 
 
@@ -19,30 +19,37 @@
     :items="{{ Cart::toArray() }}"
     :addresses="{{ $addresses }}"
     inline-template>
-    <div class="container mx-auto">
-    <h1 class="text-lg text-red-700 font-semibold my-5">{{ __('avored.checkout') }} {{ __('avored.page') }}</h1>
-    <form @submit.prevent="handleSubmit" id="checkout-form"  method="post" action="{{ route('order.place') }}">
+    <div>
+    <h1>{{ __('Checkout Page') }}</h1>
+    <a-form :form="form" @submit.prevent="handleSubmit" id="checkout-form"  method="post" action="{{ route('order.place') }}">
       @csrf          
-      <div class="flex">
-        <div class="w-1/2">
+      <a-row :gutter="15">
+        <a-col :span="12">
+         
               @include('checkout.cards.personal')   
           
               @include('checkout.cards.shipping-address')
               @include('checkout.cards.billing-address')
         
-        </div>
-        <div class="w-1/2 ml-3">
+        </a-col>
+        <a-col :span="12">
               @include('checkout.cards.shipping-option')   
               @include('checkout.cards.payment-option')   
               @include('checkout.cards.cart-items')   
-              
-              <button type="submit" class="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded">
-                  {{ __('avored.btn.place_order') }}
-              </button>
+              <a-form-item class="mt-1">
+                <a-button
+                    type="primary"
+                    :loading="submitStatus"
+                    html-type="submit">
+                    PlaceOrder
+                </a-button>
+            </a-form-item>
            
-        </div>
-      </div>
-    </form>
+        </a-col>
+      </a-row>
+
+      
+    </a-form>
     </div>
   </checkout-page>
 @endsection
