@@ -44,8 +44,13 @@ Route::middleware('auth:customer')
         Route::get('edit', EditController::class)->name('edit');
         Route::get('upload', UploadController::class)->name('upload');
         Route::post('save', SaveController::class)->name('save');
+        Route::post('password', PasswordController::class)->name('password');
         Route::post('upload-image', UploadImageController::class)->name('upload.image');
         Route::resource('address', 'AddressController');
         Route::resource('order', 'OrderController')->only(['index', 'show']);
         Route::resource('order/{order}/order-comment', 'OrderCommentController');
+        Route::get(
+            'wishlist', 
+            [\AvoRed\Wishlist\Http\Controllers\AccountWishlistController::class, 'index']
+        )->name('wishlist.index');
     });
