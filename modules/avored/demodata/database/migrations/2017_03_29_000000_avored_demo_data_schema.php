@@ -161,8 +161,6 @@ class AvoredDemoDataSchema extends Migration
         ]);
         $product->categories()->sync([$avoredCategory->id]);
         ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-single-bed.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);  
-        $product->properties()->sync($brandProperty);
-        $product->properties()->sync($materialProperty);
         $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $avoredOption->id]);
         $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $whiteWoodOption->id]);
 
@@ -188,9 +186,6 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
         ]);
         $product->categories()->sync([$avoredCategory->id]);
-        $product->properties()->sync($brandProperty);
-        $product->properties()->sync($materialProperty);
-        
         ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-double-bed.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);  
         $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $avoredOption->id]);
         $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $oakwoodOption->id]);
@@ -217,9 +212,6 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
         ]);
         $product->categories()->sync([$avoredCategory->id]);
-        $product->properties()->sync($brandProperty);
-        $product->properties()->sync($materialProperty);
-        
         ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-queen-bed.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);  
         $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $avoredOption->id]);
         $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $oakwoodOption->id]);
@@ -246,9 +238,6 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
         ]);
         $product->categories()->sync([$avoredCategory->id]);
-        $product->properties()->sync($brandProperty);
-        $product->properties()->sync($materialProperty);
-        
         ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-bunk-bed.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);  
         $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $avoredOption->id]);
         $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $whiteWoodOption->id]);
@@ -275,9 +264,6 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
         ]);
         $product->categories()->sync([$phpCategory->id]);
-        $product->properties()->sync($brandProperty);
-        $product->properties()->sync($materialProperty);
-        
         ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/php-sofa-set.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $phpOption->id]);
         $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $whiteWoodOption->id]);
@@ -303,21 +289,44 @@ class AvoredDemoDataSchema extends Migration
             'length' => rand(1, 10),
             'width' => rand(1, 10),
             ]);
-        $product->categories()->sync([$laravelCategory->id]);
-        $product->properties()->sync($brandProperty);
-        $product->properties()->sync($materialProperty);
-    
-        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/laravel-sofa-set.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
-        $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $laravelOption->id]);
-        $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $oakwoodOption->id]);
+            $product->categories()->sync([$laravelCategory->id]);
+            ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/laravel-sofa-set.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $laravelOption->id]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $oakwoodOption->id]);
 
 
-        $price = rand(500, 1000) / 10;
-        $product = Product::create([
+            $price = rand(500, 1000) / 10;
+            $product = Product::create([
+                'type' => 'BASIC',
+                'name' => 'PHP Single Mattress',
+                'slug' => 'php-single-mattress',
+                'sku' => 'php-sofa-set',
+                'barcode' => '123456789',
+                'description' => $faker->text,
+                'status' => 1,
+                'in_stock' => 1,
+                'track_stock' => 1,
+                'qty' => rand(50, 100),
+                'is_taxable' => 1,
+                'price' => $price,
+                'cost_price' => $price - (rand(50, 100) / 10),
+                'weight' => rand(1, 10),
+                'height' => rand(1, 10),
+                'length' => rand(1, 10),
+                'width' => rand(1, 10),
+            ]);
+            $product->categories()->sync([$phpCategory->id]);
+            ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/php-single-mattress.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $phpOption->id]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $oakwoodOption->id]);
+
+
+            $price = rand(500, 1000) / 10;
+            $product = Product::create([
             'type' => 'BASIC',
-            'name' => 'PHP Single Mattress',
-            'slug' => 'php-single-mattress',
-            'sku' => 'php-sofa-set',
+            'name' => 'Laravel Bedside Table',
+            'slug' => 'laravel-bedside-table',
+            'sku' => 'laravel-bedside-table',
             'barcode' => '123456789',
             'description' => $faker->text,
             'status' => 1,
@@ -331,79 +340,47 @@ class AvoredDemoDataSchema extends Migration
             'height' => rand(1, 10),
             'length' => rand(1, 10),
             'width' => rand(1, 10),
-        ]);
-        $product->categories()->sync([$phpCategory->id]);
-        $product->properties()->sync($brandProperty);
-        $product->properties()->sync($materialProperty);
-        
-        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/php-single-mattress.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
-        $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $phpOption->id]);
-        $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $oakwoodOption->id]);
+            ]);
+            $product->categories()->sync([$laravelCategory->id]);
+            ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/laravel-bedside-table.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $laravelOption->id]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $aluminumFrameOption->id]);
 
+            $mainMenu = MenuGroup::create(['name' => 'Main Menu', 'identifier' => 'main-menu', 'is_default' => 1]);
 
-        $price = rand(500, 1000) / 10;
-        $product = Product::create([
-        'type' => 'BASIC',
-        'name' => 'Laravel Bedside Table',
-        'slug' => 'laravel-bedside-table',
-        'sku' => 'laravel-bedside-table',
-        'barcode' => '123456789',
-        'description' => $faker->text,
-        'status' => 1,
-        'in_stock' => 1,
-        'track_stock' => 1,
-        'qty' => rand(50, 100),
-        'is_taxable' => 1,
-        'price' => $price,
-        'cost_price' => $price - (rand(50, 100) / 10),
-        'weight' => rand(1, 10),
-        'height' => rand(1, 10),
-        'length' => rand(1, 10),
-        'width' => rand(1, 10),
-        ]);
-        $product->categories()->sync([$laravelCategory->id]);
-        $product->properties()->sync($brandProperty);
-        $product->properties()->sync($materialProperty);
-        
-        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/laravel-bedside-table.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
-        $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $laravelOption->id]);
-        $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $aluminumFrameOption->id]);
+            $mainMenu->menus()->create(['name' => $avoredCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $avoredCategory->slug]);
+            $mainMenu->menus()->create(['name' => $phpCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $phpCategory->slug]);
+            $mainMenu->menus()->create(['name' => $laravelCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $laravelCategory->slug]);
+            $mainMenu->menus()->create(['name' => 'Cart', 'type' => Menu::FRONT_MENU, 'route_info' => 'cart.show']);
+            $mainMenu->menus()->create(['name' => 'Checkout', 'type' => Menu::FRONT_MENU, 'route_info' => 'checkout.show']);
+            $mainMenu->menus()->create(['name' => 'Login', 'type' => Menu::FRONT_MENU, 'route_info' => 'login']);
+            $mainMenu->menus()->create(['name' => 'Register', 'type' => Menu::FRONT_MENU, 'route_info' => 'register']);
 
-        $mainMenu = MenuGroup::create(['name' => 'Main Menu', 'identifier' => 'main-menu', 'is_default' => 1]);
+            $mainAuthMenu = MenuGroup::create(['name' => 'Main Auth Menu', 'identifier' => 'main-auth-menu']);
 
-        $mainMenu->menus()->create(['name' => $avoredCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $avoredCategory->slug]);
-        $mainMenu->menus()->create(['name' => $phpCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $phpCategory->slug]);
-        $mainMenu->menus()->create(['name' => $laravelCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $laravelCategory->slug]);
-        $mainMenu->menus()->create(['name' => 'Cart', 'type' => Menu::FRONT_MENU, 'route_info' => 'cart.show']);
-        $mainMenu->menus()->create(['name' => 'Checkout', 'type' => Menu::FRONT_MENU, 'route_info' => 'checkout.show']);
-        $mainMenu->menus()->create(['name' => 'Login', 'type' => Menu::FRONT_MENU, 'route_info' => 'login']);
-        $mainMenu->menus()->create(['name' => 'Register', 'type' => Menu::FRONT_MENU, 'route_info' => 'register']);
+            $mainAuthMenu->menus()->create(['name' => $avoredCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $avoredCategory->slug]);
+            $mainAuthMenu->menus()->create(['name' => $phpCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $phpCategory->slug]);
+            $mainAuthMenu->menus()->create(['name' => $laravelCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $laravelCategory->slug]);
+            $mainAuthMenu->menus()->create(['name' => 'Cart', 'type' => Menu::FRONT_MENU, 'route_info' => 'cart.show']);
+            $mainAuthMenu->menus()->create(['name' => 'Checkout', 'type' => Menu::FRONT_MENU, 'route_info' => 'checkout.show']);
+            $accountMenu = $mainAuthMenu->menus()->create(['name' => 'Account', 'type' => Menu::FRONT_MENU, 'route_info' => 'account.dashboard']);
+            $mainAuthMenu->menus()->create(['name' => 'Logout', 'type' => Menu::FRONT_MENU, 'route_info' => 'logout', 'parent_id' => $accountMenu->id]);
 
-        $mainAuthMenu = MenuGroup::create(['name' => 'Main Auth Menu', 'identifier' => 'main-auth-menu']);
+            Page::create(
+                ['name' => 'HomePage',
+                'slug' => 'home-page',
+                'content' => '%%%avored-banner%%%']
+            );
 
-        $mainAuthMenu->menus()->create(['name' => $avoredCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $avoredCategory->slug]);
-        $mainAuthMenu->menus()->create(['name' => $phpCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $phpCategory->slug]);
-        $mainAuthMenu->menus()->create(['name' => $laravelCategory->name, 'type' => Menu::CATEGORY, 'route_info' => $laravelCategory->slug]);
-        $mainAuthMenu->menus()->create(['name' => 'Cart', 'type' => Menu::FRONT_MENU, 'route_info' => 'cart.show']);
-        $mainAuthMenu->menus()->create(['name' => 'Checkout', 'type' => Menu::FRONT_MENU, 'route_info' => 'checkout.show']);
-        $accountMenu = $mainAuthMenu->menus()->create(['name' => 'Account', 'type' => Menu::FRONT_MENU, 'route_info' => 'account.dashboard']);
-        $mainAuthMenu->menus()->create(['name' => 'Logout', 'type' => Menu::FRONT_MENU, 'route_info' => 'logout', 'parent_id' => $accountMenu->id]);
+            $customer = Customer::create([
+                'first_name' => $faker->firstName(),
+                'last_name' => $faker->lastName(),
+                'email' => $faker->safeEmail(),
+                'password' => 'secret',
+            ]);
 
-        Page::create(
-            ['name' => 'HomePage',
-            'slug' => 'home-page',
-            'content' => '%%%avored-banner%%%']
-        );
-
-        $customer = Customer::create([
-            'first_name' => $faker->firstName(),
-            'last_name' => $faker->lastName(),
-            'email' => $faker->safeEmail(),
-            'password' => 'secret',
-        ]);
-
-        $this->createOrder($faker, $customer);
-        $this->createOrder($faker, $customer);
+            $this->createOrder($faker, $customer);
+            $this->createOrder($faker, $customer);
     }
 
     /**

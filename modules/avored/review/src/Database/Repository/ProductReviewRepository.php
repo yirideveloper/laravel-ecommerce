@@ -6,7 +6,6 @@ use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Collection;
 use AvoRed\Review\Database\Models\ProductReview;
 use AvoRed\Review\Database\Contracts\ProductReviewModelInterface;
-use Illuminate\Contracts\Pagination\Paginator;
 
 class ProductReviewRepository implements ProductReviewModelInterface
 {
@@ -51,12 +50,10 @@ class ProductReviewRepository implements ProductReviewModelInterface
 
     /**
      * Get all the reviewes from the connected database.
-     * @param int $productId 
-     * @param int $perPage
      * @return \Illuminate\Database\Eloquent\Collection $reviews
      */
-    public function getAllReviewsByProductId(int $productId, int $perPage = 10) : Paginator
+    public function getAllReviewsByProductId(int $productId) : SupportCollection
     {
-        return ProductReview::whereProductId($productId)->paginate($perPage);
+        return ProductReview::whereProductId($productId)->get();
     }
 }
