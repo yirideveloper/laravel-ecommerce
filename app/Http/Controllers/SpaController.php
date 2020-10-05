@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Spa;
+namespace App\Http\Controllers;
 
 
 class SpaController

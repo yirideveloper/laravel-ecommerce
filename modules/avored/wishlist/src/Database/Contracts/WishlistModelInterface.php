@@ -2,7 +2,6 @@
 
 namespace AvoRed\Wishlist\Database\Contracts;
 
-use AvoRed\Framework\Database\Models\Customer;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Collection;
 use AvoRed\Wishlist\Database\Models\Wishlist;
@@ -25,19 +24,17 @@ interface WishlistModelInterface
 
     /**
      * Find Wishlist Resource into a database.
-     * @param Customer $customer
      * @param int $productId
      * @return \AvoRed\Wishlist\Database\Models\Wishlist $wishlist
      */
-    public function getWishlistByProductId(Customer $customer, int $productId) : Wishlist;
+    public function getWishlistByProductId(int $productId) : Wishlist;
 
     /**
      * Find Wishlist Resource into a database.
-     * @param Customer $customer
      * @param int $productId
      * @return bool
      */
-    public function customerHasProduct(Customer $customer, int $productId) : bool;
+    public function userHasProduct(int $productId) : bool;
 
     /**
      * Delete Wishlist Resource from a database.
@@ -54,9 +51,7 @@ interface WishlistModelInterface
 
     /**
      * Get All Wishlist of the logged in user.
-     * @param Customer $customer
-     * @param array $with
      * @return \Illuminate\Support\Collection $wishlists
      */
-    public function customerWishlists(Customer $customer, $with = []) : SupportCollection;
+    public function userWishlists() : SupportCollection;
 }

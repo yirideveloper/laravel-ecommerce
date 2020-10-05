@@ -5,7 +5,6 @@
 /vendor
 /modules/avored/stripe
 /modules/avored/pos
-/modules/avored/heroproduct
 .env
 .env.dusk.local
 .phpunit.result.cache

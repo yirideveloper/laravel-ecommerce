@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Category;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use AvoRed\Framework\Database\Contracts\CategoryModelInterface;
 use AvoRed\Framework\Database\Contracts\CategoryFilterModelInterface;
 use AvoRed\Wishlist\Database\Contracts\WishlistModelInterface;
-use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {

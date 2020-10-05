@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Product;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use AvoRed\Framework\Database\Contracts\ProductModelInterface;
 use AvoRed\Review\Database\Contracts\ProductReviewModelInterface;
-use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {

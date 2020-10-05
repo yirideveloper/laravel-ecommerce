@@ -4,7 +4,6 @@ namespace App\Http\Requests\Account;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
 class SaveRequest extends FormRequest
 {
     /**
@@ -26,7 +25,7 @@ class SaveRequest extends FormRequest
     {
         return [
             'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
+            'last_name' => 'required|max:255'
         ];
     }
 }

@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Cart;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CartRequest;
 use AvoRed\Framework\Support\Facades\Cart;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Arr;
-use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
@@ -42,7 +41,6 @@ class CartController extends Controller
     public function show(Request $request)
     {
         $cartProducts = Cart::all();
-        //var_dump($cartProducts);
 
         return view('cart.show')->with(compact('cartProducts'));
     }

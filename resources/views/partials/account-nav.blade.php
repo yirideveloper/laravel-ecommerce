@@ -28,11 +28,6 @@
         </a>
     </li>
     <li class="py-3 border-b block">
-        <a class="py-3" href="{{ route('account.wishlist.index') }}">
-            {{ __('avored.my_wishlist') }}
-        </a>
-    </li>
-    <li class="py-3 border-b block">
         <a class="py-3" href="{{ route('logout') }}">
             {{ __('Logout') }}
         </a>

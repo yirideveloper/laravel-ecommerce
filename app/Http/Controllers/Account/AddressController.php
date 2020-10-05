@@ -85,8 +85,7 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-        //Show address information about address
-        var_dump($id);
+        //
     }
 
     /**
