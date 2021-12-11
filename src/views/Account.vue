@@ -20,10 +20,8 @@
                     <router-link :to="{name: 'account.edit'}" class="py-3">Edit Profile </router-link>
                   </li>
                   <li class="py-3 border-b block">
-                      <router-link :to="{name: 'address.index'}" class="py-3">
-                          Addresses
-                      </router-link>
-                    </li>
+                    <a class="py-3" href="#"> Addresses </a>
+                  </li>
                   <li class="py-3 border-b block">
                     <a class="py-3" href="#"> Orders </a>
                   </li>
