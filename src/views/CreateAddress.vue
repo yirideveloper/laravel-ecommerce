@@ -31,18 +31,12 @@
                             <div class="mt-3 flex w-full">
                               <div class="block w-full">
                                   <label class="text-sm w-full text-gray-700">
-                                      {{ t('address_type') }}
+                                      TEST {{ t('address_type') }}
                                   </label>
-                                  <select 
-                                    v-model="address.type" 
-                                    class="w-full px-4 py-2 text-md text-gray-700">
+                                  <select v-model="address.type" class="w-full px-4 py-2 text-md bg-red-400 text-gray-700">
                                       <option value="BILLING">{{ t('billing') }}</option>
                                       <option value="SHIPPING">{{ t('shipping') }}</option>
                                   </select>
-                                  <p v-if="_.get(validationErrors, 'type.0')" 
-                                    class="text-red-500 mt-1 text-sm">
-                                      {{ _.get(validationErrors, 'type.0') }}
-                                  </p>
                               </div>
                           </div>
 
@@ -50,7 +44,6 @@
                               <div class="w-1/2">
                                   <avored-input
                                       v-model="address.first_name"
-                                      :field-error="_.get(validationErrors, 'first_name.0')"
                                       :field-label="t('first_name')"
                                       :placeholder="t('first_name')"
                                       field-name="first_name"
@@ -60,7 +53,6 @@
                               <div class="w-1/2 ml-3">
                                   <avored-input
                                       v-model="address.last_name"
-                                      :field-error="_.get(validationErrors, 'last_name.0')"
                                       :field-label="t('last_name')"
                                       :placeholder="t('last_name')"
                                       field-name="last_name"
@@ -73,7 +65,6 @@
                                   <avored-input
                                       v-model="address.company_name"
                                       :field-label="t('company_name')"
-                                      :field-error="_.get(validationErrors, 'company_name.0')"
                                       :placeholder="t('company_name')"
                                       field-name="company_name"
                                   >
@@ -83,7 +74,6 @@
                                   <avored-input
                                       v-model="address.phone"
                                       :field-label="t('phone')"
-                                      :field-error="_.get(validationErrors, 'phone.0')"
                                       :placeholder="t('phone')"
                                       field-name="phone"
                                   >
@@ -94,7 +84,6 @@
                               <div class="w-1/2">
                                   <avored-input
                                       v-model="address.address1"
-                                      :field-error="_.get(validationErrors, 'address1.0')"
                                       :field-label="t('address1')"
                                       :placeholder="t('address1')"
                                       field-name="address1"
@@ -104,7 +93,6 @@
                               <div class="w-1/2 ml-3">
                                   <avored-input
                                       v-model="address.address2"
-                                      :field-error="_.get(validationErrors, 'address2.0')"
                                       :field-label="t('address2')"
                                       :placeholder="t('address2')"
                                       field-name="address2"
@@ -117,14 +105,13 @@
                                   <avored-input
                                       v-model="address.postcode"
                                       :field-label="t('postcode')"
-                                      :field-error="_.get(validationErrors, 'postcode.0')"
                                       :placeholder="t('postcode')"
                                       field-name="postcode"
                                   >
                                   </avored-input>
                               </div>
                               <div class="flex ml-3 w-1/2">
-                              <div class="w-full"  v-if="!countryOptionsResultFetching">
+                              <div class="w-full" v-if="!countryOptionsResultFetching">
                                   <label class="text-sm text-gray-700">
                                       {{ t('country') }}
                                   </label>
@@ -135,10 +122,6 @@
                                           </option>
                                       </template>
                                   </select>
-                                  <p v-if="_.get(validationErrors, 'country_id.0')" 
-                                    class="text-red-500 mt-1 text-sm">
-                                      {{ _.get(validationErrors, 'country_id.0') }}
-                                  </p>
                               </div>
                           </div>
                           </div>
@@ -146,7 +129,6 @@
                               <div class="w-1/2">
                                   <avored-input
                                       v-model="address.state"
-                                      :field-error="_.get(validationErrors, 'state.0')"
                                       :field-label="t('state')"
                                       :placeholder="t('state')"
                                       field-name="state"
@@ -157,7 +139,6 @@
                                   <avored-input
                                       v-model="address.city"
                                       :field-label="t('city')"
-                                      :field-error="_.get(validationErrors, 'city.0')"
                                       :placeholder="t('city')"
                                       field-name="city"
                                   >
@@ -201,17 +182,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { useMutation, useQuery } from '@urql/vue'
+import { defineComponent, ref } from "vue"
+import { useMutation, useQuery } from "@urql/vue"
 
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
-import { useI18n } from 'vue-i18n'
-import CountryOptionsQuery from '@/graphql/CountryOptionsQuery'
-import CreateAddressMutation from '@/graphql/CreateAddressMutation'
-import VueFeather from 'vue-feather'
-import { useRouter } from 'vue-router'
-import _ from 'lodash'
+import { useI18n } from "vue-i18n"
+import CountryOptionsQuery from "@/graphql/CountryOptionsQuery"
+import CreateAddressMutation from "@/graphql/CreateAddressMutation"
+import VueFeather from "vue-feather"
+import { useRouter } from "vue-router"
 
 export default defineComponent({
   components: {
@@ -222,7 +202,7 @@ export default defineComponent({
   setup() {
     const { t } = useI18n()
     const router = useRouter()
-    const validationErrors = ref({})
+
     const address = ref({
         type: '',
         first_name: '',
@@ -239,11 +219,9 @@ export default defineComponent({
     
     const handleSubmit = () => {
         createAddressMutation.executeMutation(address).then((result) => {
-            if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
-                validationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
-            } else {
-                router.push({name: 'account'})
-            }
+            // @todo check for success
+            console.log(result)
+            router.push({name: 'account'})
         })
     }
 
@@ -251,10 +229,8 @@ export default defineComponent({
     const countryQueryResult = useQuery({query: CountryOptionsQuery})
 
     return {
-      _,
       t,
       address,
-      validationErrors,
       handleSubmit,
       countryOptionsResult: countryQueryResult.data,
       countryOptionsResultFetching: countryQueryResult.fetching,
