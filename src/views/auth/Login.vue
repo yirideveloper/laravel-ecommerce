@@ -17,20 +17,18 @@
               field-name="email"
               field-type="email"
               :placeholder="t('email')"
-              :field-error="_.get(validationErrors, 'email.0')"
               :field-label="t('email')"
-              v-model="userAuthData.email"
+              v-model="email"
             />
           </div>
           <div class="mt-5">
             <avored-input
               field-name="password"
               field-type="password"
-              :field-error="_.get(validationErrors, 'password.0')"
               :class="t('password')"
               :placeholder="t('password')"
               :field-label="t('password')"
-              v-model="userAuthData.password"
+              v-model="password"
             />
           </div>
 
@@ -92,10 +90,8 @@
 
 
 <script lang="ts">
-import _ from 'lodash'
 import { defineComponent, ref } from "vue"
 import AvoRedInput from "@/components/forms/AvoRedInput.vue"
-import CustomerLoginMutation from '@/graphql/CustomerLoginMutation'
 import { useMutation } from "@urql/vue"
 import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants"
 import { useRouter } from "vue-router"
@@ -109,44 +105,47 @@ export default defineComponent({
     const { t } = useI18n()
     const router = useRouter()
     const email = ref("")
-    const validationErrors = ref({})
     const password = ref("")
-    const userAuthData = ref({
-      email: '',
-      password: ''
-    })
 
-    const loginMutation = useMutation(CustomerLoginMutation)
+    const loginMutation = useMutation(`
+          mutation VisitorLogin (
+                  $password: String!
+                  $email: String!
+              ){
+              login (
+                  email: $email
+                  password: $password
+              ){
+                  token_type
+                  access_token
+                  expires_in
+                  refresh_token
+              }
+          }
+        `)
 
     const onFormSubmit = async () => {
-      // const variables = {
-      //   email: email.value,
-      //   password: password.value,
-      // }
+      const variables = {
+        email: email.value,
+        password: password.value,
+      }
 
       const accessToken = await loginMutation
-        .executeMutation(userAuthData)
+        .executeMutation(variables)
         .then((result) => {
-          if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
-              validationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
-          } else {
-              localStorage.setItem(AUTH_TOKEN, result.data.login.access_token);
-              localStorage.setItem(CUSTOMER_LOGGED_IN, "true");
-              router.push({ name: "home" })  
-          }
+          return result.data.login.access_token;
         })
 
-      ;
+      localStorage.setItem(AUTH_TOKEN, accessToken);
+      localStorage.setItem(CUSTOMER_LOGGED_IN, "true");
+      router.push({ name: "home" });
     }
     return {
       t,
       onFormSubmit,
       email,
       password,
-      validationErrors,
-      userAuthData,
-      _
-    }
+    };
   },
 });
 </script>

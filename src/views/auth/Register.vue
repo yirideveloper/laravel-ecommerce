@@ -20,7 +20,6 @@
               <avored-input 
                   field-name="last_name" 
                   :field-label="t('last_name')"
-                  :field-error="_.get(validationErrors, 'last_name.0')"
                   :placeholder="t('last_name')"
                   v-model="last_name"
               />
@@ -30,7 +29,6 @@
                   field-name="email" 
                   field-type="email" 
                   :field-label="t('email')"
-                  :field-error="_.get(validationErrors, 'email.0')"
                   :placeholder="t('email')"
                   v-model="email"
               />
@@ -40,7 +38,6 @@
                   field-name="password" 
                   field-type="password" 
                   :field-label="t('password')"
-                  :field-error="_.get(validationErrors, 'password.0')"
                   :placeholder="t('password')"
                   v-model="password"
               />
@@ -50,7 +47,6 @@
                   field-name="password_confirmation" 
                   field-type="password" 
                   :field-label="t('password_confirmation')"
-                  :field-error="_.get(validationErrors, 'password_confirmation.0')"
                   :placeholder="t('password_confirmation')"
                   v-model="password_confirmation"
               />

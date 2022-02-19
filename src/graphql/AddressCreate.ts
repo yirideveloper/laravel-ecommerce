@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 const CreateAddress = gql`
     mutation CreateAddressMutation (
         $type : String!
+        $customer_id: String!
         $first_name: String!
         $last_name: String!
         $company_name: String
@@ -16,6 +17,7 @@ const CreateAddress = gql`
     ) {
         createAddress (
             type: $type
+            customer_id: $customer_id
             first_name:$first_name
             last_name: $last_name
             company_name: $company_name
