@@ -92,12 +92,6 @@ const routes: Array<RouteRecordRaw> = [
     meta: { 'middleware': 'customer', 'layout': 'app' }
   },
   {
-    path: '/order/:order',
-    name: 'order.show',
-    component: () => import('../views/OrderShow.vue'),
-    meta: { 'middleware': 'customer', 'layout': 'app' }
-  },
-  {
     path: '/account/address',
     name: 'address.index',
     component: () => import('../views/Address.vue'),
