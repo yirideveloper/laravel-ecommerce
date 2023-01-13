@@ -3,12 +3,13 @@ import React, {useState} from 'react'
 import { getAuthUserInfo } from '../../features/userLogin/userLoginSlice'
 import {useQuery} from 'urql';
 import { isEmpty } from 'lodash';
-import {useAppSelector} from '../../app/hooks'
+import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {FormInput} from '../../components/Form/FormInput';
 import {FormLabel} from '../../components/Form/FormLabel';
 import {Header} from '../../components/Header'
 import {visitorId} from '../../features/cart/cartSlice'
 import {useNavigate} from "react-router-dom";
+import { setCustomerId } from '../../features/checkout/checkoutSlice';
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -28,12 +29,14 @@ query CartItems($visitorId: String!)  {
 
 export const CheckoutShow = () => {
     const navigate = useNavigate();
-    
+    const dispatch = useAppDispatch();
+
     const currentUserInfo = useAppSelector(getAuthUserInfo);
     if (!isEmpty(currentUserInfo.id)) {
+        dispatch(setCustomerId(currentUserInfo.id))
+        
         navigate('/checkout/shipping-address')
     }
-    console.log(currentUserInfo)
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -94,7 +97,7 @@ export const CheckoutShow = () => {
                                 {get(data, 'cartItems', []).map((cartItem: any) => {
 
                                     incrementCartTotal(get(cartItem, 'product.price'), get(cartItem, 'qty', 1))
-                                    return (<div className="flex items-center hover:bg-gray-100 py-5">
+                                    return (<div key={get(cartItem, 'product.id')}  className="flex items-center hover:bg-gray-100 py-5">
                                         <div className="flex w-2/5">
                                             <div className="w-20">
                                                 <img className="h-24" src={get(cartItem, 'product.main_image_url')}
