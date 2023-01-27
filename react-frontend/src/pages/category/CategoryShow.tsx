@@ -6,7 +6,6 @@ import { useQuery } from 'urql';
 import { Header } from '../../components/Header';
 import { ProductCard } from '../../components/ProductCard';
 import { Product } from '../../types/ProductType';
-import { AvoRedApp } from '../../components/Layout/AvoRedApp';
 
 const GetCategory = `
 query GetCategory ($slug: String!) {
@@ -34,7 +33,9 @@ export const CategoryShow = () => {
   const [{ fetching, data }] = useQuery({ query: GetCategory, variables: { slug } });
   
   return (
-    <AvoRedApp>
+    <div className="min-h-full">
+      <Header />
+
       {fetching === true ? (
           <p>Loading</p>
       ) : (
@@ -148,7 +149,6 @@ export const CategoryShow = () => {
         </>
       )
       }
-    </AvoRedApp>
-
+    </div>
   )
 }
